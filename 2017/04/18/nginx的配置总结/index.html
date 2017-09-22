@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nginx," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本文首发于 http://liuxianan.com，原文地址：http://blog.liuxianan.com/nginx-config.html，转载请注明署名“liuxianan”并在显眼位置保留原文链接，谢谢！">
+<meta name="keywords" content="nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx配置总结">
+<meta property="og:url" content="https://xingyun888888.github.io/2017/04/18/nginx的配置总结/index.html">
+<meta property="og:site_name" content="呆萌的smile_微笑">
+<meta property="og:description" content="本文首发于 http://liuxianan.com，原文地址：http://blog.liuxianan.com/nginx-config.html，转载请注明署名“liuxianan”并在显眼位置保留原文链接，谢谢！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-22T09:44:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx配置总结">
+<meta name="twitter:description" content="本文首发于 http://liuxianan.com，原文地址：http://blog.liuxianan.com/nginx-config.html，转载请注明署名“liuxianan”并在显眼位置保留原文链接，谢谢！">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://xingyun888888.github.io/2017/04/18/nginx的配置总结/"/>
+
+
+
+
+
+  <title>nginx配置总结 | 呆萌的smile_微笑</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">呆萌的smile_微笑</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/04/18/nginx的配置总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nginx配置总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T15:54:12+08:00">
+                2017-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">nginx</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  本文首发于 http://liuxianan.com，原文地址：http://blog.liuxianan.com/nginx-config.html，转载请注明署名“liuxianan”并在显眼位置保留原文链接，谢谢！
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="nginx的全局变量"><a href="#nginx的全局变量" class="headerlink" title="nginx的全局变量"></a>nginx的全局变量</h1><p>nginx内置了大量的$开头的全局变量，这些变量在有些时候会非常有用，而且网上很少有介绍的很全面的文章，比如我今天想找一个获取<code>origin</code>的变量，找半天没找到，最后自己根据规律随便蒙一个<code>$http_origin</code>竟然对了！</p>
+<p>以下是我已亲自验证过的（测试版本：<code>v1.11.8</code>）：</p>
+<ul>
+<li><code>$remote_addr</code>：客户端IP地址；</li>
+<li><code>http_host</code>：request.getHeader(‘Host’)；</li>
+<li><code>http_origin</code>：request.getHeader(‘Origin’)；</li>
+<li><code>http_referer</code>：request.getReferer(‘Referer’)；</li>
+</ul>
+<p>补充：</p>
+<ul>
+<li><code>origin</code>和<code>host</code>的区别是，我在A页面调用B页面的接口，那么A是origin，B是host；</li>
+<li><code>origin</code>和<code>Referer</code>的区别是，前者是调用页面域名(如<a href="http://www.aaa.com" target="_blank" rel="external">http://www.aaa.com</a> )，后者则是不包括哈希的完整URL（如 <a href="http://www.aaa.com/index.html）" target="_blank" rel="external">http://www.aaa.com/index.html）</a></li>
+</ul>
+<a id="more"></a>
+<p>以下摘自网络，未亲自验证：</p>
+<blockquote>
+<p>$args ： #这个变量等于请求行中的参数，同$query_string<br>$content_length ： 请求头中的Content-length字段。<br>$content_type ： 请求头中的Content-Type字段。<br>$document_root ： 当前请求在root指令中指定的值。<br>$host ： 请求主机头字段，否则为服务器名称。<br>$http_user_agent ： 客户端agent信息<br>$http_cookie ： 客户端cookie信息<br>$limit_rate ： 这个变量可以限制连接速率。<br>$request_method ： 客户端请求的动作，通常为GET或POST。<br>$remote_addr ： 客户端的IP地址。<br>$remote_port ： 客户端的端口。<br>$remote_user ： 已经经过Auth Basic Module验证的用户名。<br>$request_filename ： 当前请求的文件路径，由root或alias指令与URI请求生成。<br>$scheme ： HTTP方法（如http，https）。<br>$server_protocol ： 请求使用的协议，通常是HTTP/1.0或HTTP/1.1。<br>$server_addr ： 服务器地址，在完成一次系统调用后可以确定这个值。<br>$server_name ： 服务器名称。<br>$server_port ： 请求到达服务器的端口号。<br>$request_uri ： 包含请求参数的原始URI，不包含主机名，如：”/foo/bar.php?arg=baz”。<br>$uri ： 不带请求参数的当前URI，$uri不包含主机名，如”/foo/bar.html”。<br>$document_uri ： 与$uri相同。</p>
+</blockquote>
+<p>参考 <a href="https://segmentfault.com/a/1190000002797606" target="_blank" rel="external">https://segmentfault.com/a/1190000002797606</a> 和 <a href="http://www.cnblogs.com/AloneSword/archive/2011/12/10/2283483.html" target="_blank" rel="external">http://www.cnblogs.com/AloneSword/archive/2011/12/10/2283483.html</a></p>
+<h1 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h1><p>例如，将 <a href="http://www.test.com" target="_blank" rel="external">http://www.test.com</a> 转发到 <a href="http://127.0.0.1:6666" target="_blank" rel="external">http://127.0.0.1:6666</a> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen       80;</div><div class="line">    server_name  www.test.com;</div><div class="line">    location / &#123;</div><div class="line">        proxy_set_header X-Real-IP $remote_addr;</div><div class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">        proxy_set_header Host $http_host;</div><div class="line">        # 代理连接超时设置为10秒钟，默认60秒太久了</div><div class="line">        proxy_connect_timeout 10;</div><div class="line">        proxy_pass http://127.0.0.1:6666;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="跨域配置"><a href="#跨域配置" class="headerlink" title="跨域配置"></a>跨域配置</h2><p>如果还需要增加跨域配置，只需要再在上面加上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen       80;</div><div class="line">    server_name  www.test.com;</div><div class="line">    location / &#123;</div><div class="line">        add_header &apos;Access-Control-Allow-Origin&apos; &apos;*&apos;;</div><div class="line">        add_header &apos;Access-Control-Allow-Headers&apos; &apos;Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With&apos;;</div><div class="line">        add_header &apos;Access-Control-Allow-Methods&apos; &apos;POST, GET, OPTIONS&apos;;</div><div class="line">        # 省略其它部分...</div><div class="line">        proxy_pass http://127.0.0.1:6666;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="永久跳转"><a href="#永久跳转" class="headerlink" title="永久跳转"></a>永久跳转</h1><p>带www的域名自动跳转到没有www的域名，丢弃域名后面的地址。</p>
+<p>下面的例子是将 <a href="http://www.liuxianan.com" target="_blank" rel="external">http://www.liuxianan.com</a> 永久跳转到 <a href="http://liuxianan.com" target="_blank" rel="external">http://liuxianan.com</a> :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen       80;</div><div class="line">    server_name  www.liuxianan.com liuxianan.cn www.liuxianan.cn;</div><div class="line">    location / &#123;</div><div class="line">        rewrite  ^(.*)    http://liuxianan.com permanent;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="泛二级域名配置"><a href="#泛二级域名配置" class="headerlink" title="泛二级域名配置"></a>泛二级域名配置</h1><p>所谓泛二级域名配置，就是将 <code>*.xxx.com</code> 根据子域名的不同自动进行不同配置，而不需要手动一个个写。</p>
+<h2 id="基于转发实现的泛二级域名配置"><a href="#基于转发实现的泛二级域名配置" class="headerlink" title="基于转发实现的泛二级域名配置"></a>基于转发实现的泛二级域名配置</h2><p>下面的例子中，将 <code>http://*.liuxianan.com/</code> 转发到 <code>http://127.0.0.1:8080/*/</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">http &#123;</div><div class="line">    include       mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line">    # 使用变量来构造server地址时必须设置resolver</div><div class="line">    resolver 8.8.8.8;</div><div class="line">    sendfile        on;</div><div class="line">    keepalive_timeout  65;</div><div class="line">    server &#123;</div><div class="line">        listen       80;</div><div class="line">        server_name  www.liuxianan.com liuxianan.cn www.liuxianan.cn;</div><div class="line">        location / &#123;</div><div class="line">            rewrite  ^(.*)    http://liuxianan.com permanent;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    server &#123;</div><div class="line">        listen       80;</div><div class="line">        server_name  demo.liuxianan.com;</div><div class="line">        location / &#123;</div><div class="line">            root   D:\Workspace\github\demo;</div><div class="line">            index  index.html index.jsp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    server &#123;</div><div class="line">        listen       80;</div><div class="line">        server_name  ~^(.+)?\.liuxianan\.com$;</div><div class="line">        location / &#123;</div><div class="line">            # 注意这里用localhost的话会报错，必须用127.0.0.1</div><div class="line">            proxy_pass http://127.0.0.1:8080/$1$request_uri;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/16/js-download/" rel="next" title="JS弹出下载对话框以及实现常见文件类型的下载">
+                <i class="fa fa-chevron-left"></i> JS弹出下载对话框以及实现常见文件类型的下载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/10/常见前端面试题目/" rel="prev" title="两道js题目">
+                两道js题目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">呆萌的smile_微笑</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx的全局变量"><span class="nav-number">1.</span> <span class="nav-text">nginx的全局变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转发"><span class="nav-number">2.</span> <span class="nav-text">转发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域配置"><span class="nav-number">2.1.</span> <span class="nav-text">跨域配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#永久跳转"><span class="nav-number">3.</span> <span class="nav-text">永久跳转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛二级域名配置"><span class="nav-number">4.</span> <span class="nav-text">泛二级域名配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于转发实现的泛二级域名配置"><span class="nav-number">4.1.</span> <span class="nav-text">基于转发实现的泛二级域名配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">呆萌的smile_微笑</span>
+
+  
+</div>
+
+<!--
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
