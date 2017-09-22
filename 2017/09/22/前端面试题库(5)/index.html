@@ -76,7 +76,7 @@
 <meta property="og:site_name" content="smile~微笑">
 <meta property="og:description" content="1.ng中如何配置路由，$scope和$rootscope的原理  12345678910111213141516171819202122232425262728293031323334353637383940414243444546ng中如何配置路由?1)使用内置路由模块ng-route      var app = angular.module(&amp;apos;ngRouteExample&amp;ap">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-22T07:53:11.000Z">
+<meta property="og:updated_time" content="2017-09-22T07:54:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端面试题库(5)">
 <meta name="twitter:description" content="1.ng中如何配置路由，$scope和$rootscope的原理  12345678910111213141516171819202122232425262728293031323334353637383940414243444546ng中如何配置路由?1)使用内置路由模块ng-route      var app = angular.module(&amp;apos;ngRouteExample&amp;ap">
@@ -293,7 +293,7 @@
 <li>1.ng中如何配置路由，$scope和$rootscope的原理</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">ng中如何配置路由?</div><div class="line"></div><div class="line">1)使用内置路由模块ng-route</div><div class="line">      var app = angular.module(&apos;ngRouteExample&apos;, [&apos;ngRoute&apos;])</div><div class="line">       .controller(&apos;MainController&apos;, function($scope) &#123;</div><div class="line">       &#125;)</div><div class="line">       .config(function($routeProvider, $locationProvider) &#123;</div><div class="line">         $routeProvider</div><div class="line">             .when(&apos;/users&apos;, &#123;</div><div class="line">                 templateUrl: &apos;user-list.html&apos;,</div><div class="line">                 controller: &apos;UserListCtrl&apos;</div><div class="line">             &#125;)</div><div class="line">             .when(&apos;/users/:username&apos;, &#123;</div><div class="line">                 templateUrl: &apos;user.html&apos;,</div><div class="line">                 controller: &apos;UserCtrl&apos;</div><div class="line">             &#125;);</div><div class="line">   </div><div class="line">           // configure html5</div><div class="line">           $locationProvider.html5Mode(true);</div><div class="line">       &#125;);</div><div class="line">             </div><div class="line">2)第三方路由模块ui-route</div><div class="line"></div><div class="line">   $stateProvider</div><div class="line">       .state(&apos;contacts&apos;, &#123;</div><div class="line">           url: &apos;/contacts&apos;,</div><div class="line">           template: &apos;contacts.html&apos;,</div><div class="line">           controller: &apos;ContactCtrl&apos;</div><div class="line">       &#125;)</div><div class="line">       .state(&apos;contacts.detail&apos;, &#123;</div><div class="line">           url: &quot;/contacts/:contactId&quot;,</div><div class="line">           templateUrl: &apos;contacts.detail.html&apos;,</div><div class="line">           controller: function ($stateParams) &#123;</div><div class="line">               // If we got here from a url of /contacts/42</div><div class="line">               $stateParams.contactId === &quot;42&quot;;</div><div class="line">           &#125;</div><div class="line">       &#125;);</div><div class="line"></div><div class="line">scope是angularJS中的作用域(其实就是存储数据的地方)，</div><div class="line">很类似javascript的原型链。搜索的时候，优先找自己的scope，</div><div class="line">如果没有找到就沿着作用域链向上搜索，直至到达根作用域rootScope。</div><div class="line"></div><div class="line">$rootScope是由angularJS加载模块的时候自动创建的，</div><div class="line">每个模块只会有1个rootScope。rootScope创建好会以服务的形式加入到$injector中。</div><div class="line">也就是说通过$injector.get(&quot;$rootScope&quot;);能够获取到某个模块的根作用域。</div><div class="line">更准确的来说，$rootScope是由angularJS的核心模块ng创建的。</div></pre></td></tr></table></figure>
-<a id="more"></a> 
+<a id="more"></a>
 <ul>
 <li>2.在ng 中的常用指令，服务注入的方式</li>
 </ul>
@@ -347,8 +347,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/22/前端面试题库(6)/" rel="next" title="前端面试题库(6)">
-                <i class="fa fa-chevron-left"></i> 前端面试题库(6)
+              <a href="/2017/09/20/移动适配解决方案/" rel="next" title="移动适配方案">
+                <i class="fa fa-chevron-left"></i> 移动适配方案
               </a>
             
           </div>
@@ -357,8 +357,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/22/两栏三栏布局/" rel="prev" title="两栏三栏布局">
-                两栏三栏布局 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/22/前端面试题库(3)/" rel="prev" title="前端面试题库(3)">
+                前端面试题库(3) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
