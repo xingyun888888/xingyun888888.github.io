@@ -76,7 +76,7 @@
 <meta property="og:site_name" content="smile~微笑">
 <meta property="og:description" content="移动适配方案参考链接  在pc端页面经常会遇到浏览器兼容的问题.移动端遇到最多的算是适配问题!  目前移动端适配常用的集中方法: 固定高度,宽度自适应,  12345678是使用最多的方法, 垂直方向使用固定的高度值, 水平方向使用百分比,定值、flex等随着屏幕的变化，页面变化 效果跟pc端的响应式类似。 原理：&amp;lt;meta name = &amp;quot;viewport&amp;quot; conte">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-22T06:29:08.000Z">
+<meta property="og:updated_time" content="2017-09-22T07:06:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动适配方案">
 <meta name="twitter:description" content="移动适配方案参考链接  在pc端页面经常会遇到浏览器兼容的问题.移动端遇到最多的算是适配问题!  目前移动端适配常用的集中方法: 固定高度,宽度自适应,  12345678是使用最多的方法, 垂直方向使用固定的高度值, 水平方向使用百分比,定值、flex等随着屏幕的变化，页面变化 效果跟pc端的响应式类似。 原理：&amp;lt;meta name = &amp;quot;viewport&amp;quot; conte">
@@ -297,6 +297,7 @@
 <li>固定高度,宽度自适应,</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">是使用最多的方法, 垂直方向使用固定的高度值, 水平方向使用百分比,定值、flex等</div><div class="line"></div><div class="line">随着屏幕的变化，页面变化 效果跟pc端的响应式类似。 </div><div class="line"></div><div class="line">原理：</div><div class="line">&lt;meta name = &quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;/&gt;</div><div class="line"></div><div class="line">这样设置之后就可以了</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <ul>
 <li><p>固定宽度,viewport缩放</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">  设计图、页面宽度、viewport width使用一个宽度,浏览器自动完成缩放 单位使用px就可以</div><div class="line">  </div><div class="line">  </div><div class="line">  原理：</div><div class="line">  根据屏幕的尺寸动态生成viewport ， </div><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=640,initial-scale=0.5,maxinum-scale=0.5,minimum-scale=0.5,user-scalable=none&quot;/&gt; </div><div class="line"></div><div class="line">宽度640是根据设计图定下的, 0.5是根据屏幕的宽度动态生成的</div><div class="line">生成的viewport告诉浏览器网页的布局视口使用640px,然后把页面缩放50%</div></pre></td></tr></table></figure>
