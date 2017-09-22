@@ -218,7 +218,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/22/移动适配解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/22/两栏三栏布局/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="smile">
@@ -237,7 +237,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/09/22/移动适配解决方案/" itemprop="url">Unbenannt</a></h1>
+                <a class="post-title-link" href="/2017/09/22/两栏三栏布局/" itemprop="url">两栏三栏布局</a></h1>
         
 
         <div class="post-meta">
@@ -249,8 +249,128 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-22T14:23:46+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-22T11:55:14+08:00">
                 2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="两栏布局-左边定宽右边自适应"><a href="#两栏布局-左边定宽右边自适应" class="headerlink" title="两栏布局  左边定宽右边自适应"></a>两栏布局  左边定宽右边自适应</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;&lt;/title&gt;</div><div class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">		.left&#123;</div><div class="line">                  width:200px;</div><div class="line">                  height:500px;</div><div class="line">                  float:left;</div><div class="line">                  background:red;</div><div class="line">		&#125;</div><div class="line">		.right&#123;</div><div class="line">                  overflow:hidden;</div><div class="line">                  height:500px;</div><div class="line">                  background:#ff0;</div><div class="line">		&#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;div class=&quot;left&quot;&gt;左边&lt;/div&gt;</div><div class="line">  &lt;div class=&quot;right&quot;&gt;右边&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h4 id="三栏布局-左右定宽-中间自适应"><a href="#三栏布局-左右定宽-中间自适应" class="headerlink" title="三栏布局 左右定宽 中间自适应"></a>三栏布局 左右定宽 中间自适应</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;&lt;/title&gt;</div><div class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">	    div&#123;</div><div class="line">	        height:500px;	</div><div class="line">	    &#125;</div><div class="line">		.left&#123;</div><div class="line">                    width:200px;</div><div class="line">                    float:left;</div><div class="line">                    background:red;</div><div class="line">                    margin-left:-200px;</div><div class="line">		&#125;</div><div class="line">		.parent&#123;</div><div class="line">                    padding-left:200px;</div><div class="line">                    padding-right:200px;</div><div class="line">                    background:green;</div><div class="line">		&#125;</div><div class="line">		.right&#123;</div><div class="line">                    width:200px;</div><div class="line">                    float:right;</div><div class="line">                    background:#ff0;</div><div class="line">                    margin-right:-200px;</div><div class="line">		&#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div class=&quot;parent&quot;&gt;中间</div><div class="line">  &lt;div class=&quot;left&quot;&gt;左边&lt;/div&gt;</div><div class="line">  &lt;div class=&quot;right&quot;&gt;右边&lt;/div&gt;</div><div class="line">&lt;/div&gt;  </div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/20/移动适配解决方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="smile">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="smile~微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/20/移动适配解决方案/" itemprop="url">移动适配方案</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-20T11:55:14+08:00">
+                2017-09-20
               </time>
             
 
@@ -352,7 +472,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/22/python安装第三方模块报错解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/10/python安装第三方模块报错解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="smile">
@@ -371,7 +491,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/09/22/python安装第三方模块报错解决方案/" itemprop="url">Unbenannt</a></h1>
+                <a class="post-title-link" href="/2017/09/10/python安装第三方模块报错解决方案/" itemprop="url">解决pip安装第三方https模块报错</a></h1>
         
 
         <div class="post-meta">
@@ -383,8 +503,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-22T14:21:54+08:00">
-                2017-09-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-10T11:55:14+08:00">
+                2017-09-10
               </time>
             
 
@@ -431,126 +551,6 @@
 <li>解决办法</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">上网查询了问题原因： 是curl的证书太老了需要下载最新的证书：</div><div class="line">下载最新的证书文件 、  </div><div class="line">$ wget http://curl.haxx.se/ca/cacert.pem  </div><div class="line">更名为ca-bundle.crt放置到默认目录  </div><div class="line">$ mv cacert.pem ca-bundle.crt </div><div class="line">$ mv ca-bundle.crt /etc/pki/tls/certs</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/22/两栏三栏布局/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="smile">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="smile~微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/22/两栏三栏布局/" itemprop="url">两栏三栏布局</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-22T11:55:14+08:00">
-                2017-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="两栏布局-左边定宽右边自适应"><a href="#两栏布局-左边定宽右边自适应" class="headerlink" title="两栏布局  左边定宽右边自适应"></a>两栏布局  左边定宽右边自适应</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;&lt;/title&gt;</div><div class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">		.left&#123;</div><div class="line">                  width:200px;</div><div class="line">                  height:500px;</div><div class="line">                  float:left;</div><div class="line">                  background:red;</div><div class="line">		&#125;</div><div class="line">		.right&#123;</div><div class="line">                  overflow:hidden;</div><div class="line">                  height:500px;</div><div class="line">                  background:#ff0;</div><div class="line">		&#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;div class=&quot;left&quot;&gt;左边&lt;/div&gt;</div><div class="line">  &lt;div class=&quot;right&quot;&gt;右边&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<h4 id="三栏布局-左右定宽-中间自适应"><a href="#三栏布局-左右定宽-中间自适应" class="headerlink" title="三栏布局 左右定宽 中间自适应"></a>三栏布局 左右定宽 中间自适应</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;&lt;/title&gt;</div><div class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">	    div&#123;</div><div class="line">	        height:500px;	</div><div class="line">	    &#125;</div><div class="line">		.left&#123;</div><div class="line">                    width:200px;</div><div class="line">                    float:left;</div><div class="line">                    background:red;</div><div class="line">                    margin-left:-200px;</div><div class="line">		&#125;</div><div class="line">		.parent&#123;</div><div class="line">                    padding-left:200px;</div><div class="line">                    padding-right:200px;</div><div class="line">                    background:green;</div><div class="line">		&#125;</div><div class="line">		.right&#123;</div><div class="line">                    width:200px;</div><div class="line">                    float:right;</div><div class="line">                    background:#ff0;</div><div class="line">                    margin-right:-200px;</div><div class="line">		&#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div class=&quot;parent&quot;&gt;中间</div><div class="line">  &lt;div class=&quot;left&quot;&gt;左边&lt;/div&gt;</div><div class="line">  &lt;div class=&quot;right&quot;&gt;右边&lt;/div&gt;</div><div class="line">&lt;/div&gt;  </div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
           
         
       
