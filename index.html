@@ -219,6 +219,210 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/25/前端面试题库(8)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/25/前端面试题库(8)/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T14:48:28+08:00">
+                2017-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>1.为什么要使用css预编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、css无法递归式定义</div><div class="line">2、解决复用性不够</div><div class="line">3、可以缓解浏览器兼容造成的冗余</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.cookie,sessionStorage和localStorage的区别</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cookie用来在浏览器和服务器中传递并且总量很小</div><div class="line">sessionStorage和localStorage用于存储本地数据，存储较大</div><div class="line">localStorage是持久性存储</div></pre></td></tr></table></figure>
+<ul>
+<li>3.如何实现浏览器内多个标签页之间的通信? (阿里)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">websocket、shareWorker</div><div class="line">也可以调用localstorge、cookies等本地存储方式</div><div class="line">将有专门的教程讲解websocket</div></pre></td></tr></table></figure>
+<ul>
+<li>4.websocket如何兼容低浏览器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Adobe Flash Socket 、</div><div class="line">ActiveX HTMLFile (IE) 、</div><div class="line">基于 multipart 编码发送 XHR 、</div><div class="line">基于长轮询的 XHR</div></pre></td></tr></table></figure>
+<ul>
+<li><p>5.如何居中div</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">1、水平居中,给定宽度</div><div class="line"></div><div class="line">div&#123;</div><div class="line">width: 200px</div><div class="line">margin:0 auto</div><div class="line">&#125;</div><div class="line"></div><div class="line">2、绝对定位居中</div><div class="line"></div><div class="line">div &#123;</div><div class="line">position: absolute;</div><div class="line">width: 300px;</div><div class="line">height: 300px;</div><div class="line">margin: auto;</div><div class="line">top: 0;</div><div class="line">left: 0;</div><div class="line">bottom: 0;</div><div class="line">right: 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">3、水平居中</div><div class="line"></div><div class="line">确定宽高</div><div class="line">div &#123;</div><div class="line">position: relative;</div><div class="line">width: 500px;</div><div class="line">height: 300px;</div><div class="line">top: 50%;</div><div class="line">left: 50%;</div><div class="line">margin: -150px 0 0 -250px;</div><div class="line">&#125;</div><div class="line">不知道宽高</div><div class="line"></div><div class="line">div &#123;</div><div class="line">position: relative;</div><div class="line">width: 500px;</div><div class="line">height: 300px;</div><div class="line">top: 50%;</div><div class="line">left: 50%;</div><div class="line">transform: translate(-50%,-50%);</div><div class="line">&#125;</div><div class="line">使用flex布局</div><div class="line"></div><div class="line">   .container &#123;</div><div class="line">        display: flex;</div><div class="line">        align-items: center;</div><div class="line">        justify-content: center;</div><div class="line">    &#125;</div><div class="line">    .container div &#123;</div><div class="line">        width: 100px;</div><div class="line">        height:100px;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>6.css3新特性</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">文字特效：text-shadow</div><div class="line">线性渐变：gradient</div><div class="line">旋转：transform</div><div class="line">圆角：border-radius</div><div class="line">新增选择器:not(:input)</div><div class="line">没写全，但是够用了</div></pre></td></tr></table></figure>
+<ul>
+<li>7.用css穿件一个三角形的原理</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">把上、左、右三条边隐藏掉  </div><div class="line"> #demo &#123;</div><div class="line">     width: 0;</div><div class="line">     height: 0;</div><div class="line">     border-width: 20px;</div><div class="line">     border-style: solid;</div><div class="line">     border-color: transparent transparent red transparent;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>8.经常li之间有看不见的间隔，造成的原因</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">回车和空格会被应用样式,解决方法：把字符大小设置成font-size:0</div></pre></td></tr></table></figure>
+<ul>
+<li>9.为什么要清除浮动</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">清除浮动是为了清除浮动元素产生的影响，浮动的元素高度将会塌陷，后面的布局也就不能实现，这儿讲一种方法</div><div class="line">&amp;:after</div><div class="line"></div><div class="line">元素浮动后,display变成了什么</div><div class="line"></div><div class="line">display: inline-block</div></pre></td></tr></table></figure>
+<ul>
+<li>10.如果需要手动写动画，你认为最小时间间隔是多久，为什么？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">多数显示屏默认频率是60hz，所以理论上最小间隔1/60*1000ms = 16.7ms</div></pre></td></tr></table></figure>
+<p>cookie隔离</p>
+<p>cookie有域的限制,跨期提交请求时，不会携带cookie</p>
+<ul>
+<li>11.数组的随机排序</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">方法一、</div><div class="line">var arr = [1,2,3,4,5,7,8,9]</div><div class="line">function randSort(arr) &#123;</div><div class="line">for (var i = 0, len = arr.length; i &lt; len; i++) &#123;</div><div class="line">var rand = parseInt(Math.random()*len)</div><div class="line">var temp = arr[rand]</div><div class="line">arr[rand] = arr[i]</div><div class="line">arr[i] = temp</div><div class="line">&#125;</div><div class="line">return arr</div><div class="line">&#125;</div><div class="line">方法二</div><div class="line">var arr = [1,2,3,4,5,7,8,9]</div><div class="line">function randSort2(arr) &#123;</div><div class="line">var mixedArray = []</div><div class="line">while(arr.length &gt; 0) &#123;</div><div class="line">var randomIndex = parseInt(Math.random()*arr.length)</div><div class="line">mixedArray.push(arr[randomIndex])</div><div class="line">arr.splice(randomIndex, 1)</div><div class="line">&#125;</div><div class="line">return mixedArray</div><div class="line">&#125;</div><div class="line">方法三</div><div class="line">var arr = [1,2,3,4,5,7,8,9]</div><div class="line">arr.sort(function () &#123;</div><div class="line">return Math.random() - 0.5</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>12.什么是window对象，什么是document对象</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window是浏览器打开的窗口，document是Document对象的一个只读引用</div></pre></td></tr></table></figure>
+<ul>
+<li>13.[“1”, “2”, “3”].map(parseInt) 答案是多少？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[1, NaN, NaN]</div></pre></td></tr></table></figure>
+<ul>
+<li>14.如何判断一个对象是否属于某个类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return a instance of Person</div></pre></td></tr></table></figure>
+<ul>
+<li>15.new操作符干了什么</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、创建一个空对象，并且this引用该对象，同时还继承了该函数的对象</div><div class="line">2、属性和方法都加入到this引用的对象中</div><div class="line">3、新创建的对象由this所引用，最后隐式返回this</div></pre></td></tr></table></figure>
+<ul>
+<li>16.Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Oject.hasOwnProperty(name),返回布尔值，不会去寻找原型链上的属性</div></pre></td></tr></table></figure>
+<ul>
+<li>17.如何检测浏览器版本</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">功能检测、userAgent特征检测：navigator.userAgent</div></pre></td></tr></table></figure>
+<ul>
+<li>18.什么是polyfill</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">  </div><div class="line">polyfill 是“在旧版浏览器上复制标准 API 的 JavaScript 补充”,可以动态地加载 JavaScript 代码或库，在不支持这些标准 API 的浏览器中模拟它们。</div></pre></td></tr></table></figure>
+<ul>
+<li><p>19.Object.is()</p>
+<p><code>Object.is在处理-0和+0是返回false,但是Object.is(NaN, NaN)返回true</code></p>
+</li>
+<li><p>20.前端性能优化</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1、减少http请求次数：雪碧图、js,css源码压缩、图片大小控制合适，cdn托管</div><div class="line">2、使用ajax代替整体刷新页面</div><div class="line">3、减少dom操作</div><div class="line">4、设置样式时更多的时候使用className而不是style</div><div class="line">5、少用全局变量、缓存dom节点查找结果</div><div class="line">6、避免使用css expression</div><div class="line">7、图片懒加载（有专门的文章讲解图片懒加载）</div></pre></td></tr></table></figure>
+<ul>
+<li>21.http状态码常用的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">  </div><div class="line">100 Continue 继续，一般在发送post请求时，已发送了http header之后服务端将返回此信息，表示确认，之后发送具体参数信息</div><div class="line">200 OK 正常返回信息</div><div class="line">201 Created 请求成功并且服务器创建了新的资源</div><div class="line">202 Accepted 服务器已接受请求，但尚未处理</div><div class="line">301 Moved Permanently 请求的网页已永久移动到新位置。</div><div class="line">302 Found 临时性重定向。</div><div class="line">303 See Other 临时性重定向，且总是使用 GET 请求新的 URI。</div><div class="line">304 Not Modified 自从上次请求后，请求的网页未修改过。</div><div class="line"></div><div class="line">400 Bad Request 服务器无法理解请求的格式，客户端不应当尝试再次使用相同的内容发起请求。</div><div class="line">401 Unauthorized 请求未授权。</div><div class="line">403 Forbidden 禁止访问。</div><div class="line">404 Not Found 找不到如何与 URI 相匹配的资源。</div><div class="line"></div><div class="line">500 Internal Server Error 最常见的服务器端错误。</div><div class="line">503 Service Unavailable 服务器端暂时无法处理请求（可能是过载或维护）。</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/white-space,word-break,word-wrap的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1348,133 +1552,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/10/前端面试题库(1)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/10/前端面试题库(1)/" itemprop="url">前端面试题库(1)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T11:55:14+08:00">
-                2017-09-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ul>
-<li>1、有一个鼠标点击按钮事件，alert，要求在执行完页面某些操作(在点击函数之外)后，再次点击不再有反映<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ele.addEventListener(&quot;click&quot;,function(e)&#123;</div><div class="line">    alert(&quot;xxx&quot;);</div><div class="line">    //执行某些操作</div><div class="line">    //解除绑定</div><div class="line">    ele.removeEventListener(&quot;click&quot;)</div><div class="line">,false)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/10/前端面试题库(1)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1524,7 +1601,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
