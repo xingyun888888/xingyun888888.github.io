@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="浅复制 关于js对象的深浅复制，先来一段代码  1234567891011121314151617//对象浅复制function shadowCopy(obj)&amp;#123;    if(typeof obj !== &amp;apos;object&amp;apos;) return ;    var newObj;    if(obj.constructor === Array)&amp;#123;        ne">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js对象的深浅复制">
+<meta property="og:url" content="https://xingyun888888.github.io/2017/09/29/js对象的深浅复制/index.html">
+<meta property="og:site_name" content="呆萌的smile_微笑">
+<meta property="og:description" content="浅复制 关于js对象的深浅复制，先来一段代码  1234567891011121314151617//对象浅复制function shadowCopy(obj)&amp;#123;    if(typeof obj !== &amp;apos;object&amp;apos;) return ;    var newObj;    if(obj.constructor === Array)&amp;#123;        ne">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-30T03:32:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js对象的深浅复制">
+<meta name="twitter:description" content="浅复制 关于js对象的深浅复制，先来一段代码  1234567891011121314151617//对象浅复制function shadowCopy(obj)&amp;#123;    if(typeof obj !== &amp;apos;object&amp;apos;) return ;    var newObj;    if(obj.constructor === Array)&amp;#123;        ne">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://xingyun888888.github.io/2017/09/29/js对象的深浅复制/"/>
+
+
+
+
+
+  <title>js对象的深浅复制 | 呆萌的smile_微笑</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">呆萌的smile_微笑</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/29/js对象的深浅复制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js对象的深浅复制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T11:55:14+08:00">
+                2017-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h4><ul>
+<li>关于js对象的深浅复制，先来一段代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//对象浅复制</div><div class="line">function shadowCopy(obj)&#123;</div><div class="line">    if(typeof obj !== &apos;object&apos;) return ;</div><div class="line">    var newObj;</div><div class="line">    if(obj.constructor === Array)&#123;</div><div class="line">        newObj = [];</div><div class="line">    &#125; else &#123;</div><div class="line">        newObj = &#123;&#125;;</div><div class="line">        newObj.constructor = obj.constructor;//保留对象的constructor属性</div><div class="line">    &#125;</div><div class="line">    for(var prop in obj)&#123;</div><div class="line">        if(obj.hasOwnProperty(prop))&#123;</div><div class="line">          newObj[prop] = obj[prop];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return newObj;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>上述代码实现了浅复制，其中解决了不能正确实现数组的浅复制和复制操作丢失了对象的constructor属性的问题，那么什么是深浅复制呢？<br>从层次上对象的复制分为浅复制和深复制，浅复制是指只复制一层对象的属性，不会复制对象中的对象的属性，对象的深复制会复制对象中层层嵌套的对象的属性。复制对象时，除了要复制对象的属性外，还要兼顾到是否保留了对象的constructor属性，是否对每一种数据类型（JavaScript常见的数据类型有String,Number,Boolean,Data,RegExp,Array,Funtion,Object）都实现正确的复制。实现浅复制可以用Object.assign函数，👇下面具体讲讲这个函数。</p>
+<p>Object.assign函数<br>函数参数为一个目标对象（该对象作为最终的返回值）源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。拷贝过程中将调用源对象的getter方法，并在target对象上使用setter方法实现目标对象的拷贝。<br>Object.assign(target, …sources)</p>
+<h2 id="使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。"><a href="#使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。" class="headerlink" title="使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。"></a>使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。</h2><ul>
+<li>深复制</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">那么深复制可能就需要层层递归，复制对象的所有属性，包括对象属性的属性的属性，有人想出了用JSON的解析实现，如下代码：</div><div class="line"></div><div class="line">function deepCopy(obj)&#123;</div><div class="line">   if(typeof obj !== &quot;object&quot;)&#123; return ;&#125;</div><div class="line">   var str = JSON.stringify(obj);</div><div class="line">   return JSON.parse(str);</div><div class="line">&#125;</div><div class="line">👆上面的方法不适用的条件是</div><div class="line"></div><div class="line">需要考虑把函数，正则等特殊数据类型复制</div><div class="line">当前对象不支持JSON</div><div class="line">JSON复制会忽略掉值为undefined以及函数表达式</div><div class="line">可以看下面的栗子：</div><div class="line">var obj = &#123;</div><div class="line">    a: 1,</div><div class="line">    b: 2,</div><div class="line">    c: undefined,</div><div class="line">    sum: function() &#123; return a + b; &#125;</div><div class="line">&#125;;</div><div class="line">var obj2 = JSON.parse(JSON.stringify(obj));</div><div class="line">console.log(obj2);//输出：Object &#123;a: 1, b: 2&#125;</div><div class="line">这个时候还是要层层递归来不同情况不同分析来考虑的，最终的方案如下：</div><div class="line"></div><div class="line">//对象深复制</div><div class="line">function deepCopy(obj)&#123;</div><div class="line">    var newObj = obj.constructor === Array ? []:&#123;&#125;;</div><div class="line">    newObj.constructor = obj.constructor;</div><div class="line">    if(typeof obj !== &quot;object&quot;)&#123; </div><div class="line">        return ;</div><div class="line">    &#125; else if(window.JSON)&#123;</div><div class="line">        newObj = JSON.parse(JSON.stringify(obj));//若需要考虑特殊的数据类型，如正则，函数等，需把这个else if去掉即可</div><div class="line">    &#125; else &#123;</div><div class="line">        for(var prop in obj)&#123;</div><div class="line">            if(obj[prop].constructor === RegExp ||obj[prop].constructor === Date)&#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125; else if(typeof obj[prop] === &apos;object&apos;)&#123;</div><div class="line">                newObj[prop] = deepCopy(obj[prop]);//递归</div><div class="line">            &#125; else &#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; </div><div class="line">    return newObj;</div><div class="line">&#125;</div><div class="line">第三方库实现的深浅复制（推荐看文档源码，这里就不详讲了）</div><div class="line"></div><div class="line">jQuery.extend</div><div class="line">jQuery.extend()</div><div class="line"></div><div class="line">lodash 中 _.clone() / _.cloneDeep()</div><div class="line">_.clone()</div><div class="line">_.cloneDeep()</div></pre></td></tr></table></figure>
+<ul>
+<li>总结</li>
+</ul>
+<p><code>在我们平时应用过程中，浅复制优先考虑Object.assign函数，深复制优先考虑lodash中的_.cloneDeep()方法，如果是简单的深复制并符合JSON格式可以考虑JSON.parse(JSON.stringify(obj))。</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/28/java知识点/" rel="next" title="java知识点收集">
+                <i class="fa fa-chevron-left"></i> java知识点收集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">呆萌的smile_微笑</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#浅复制"><span class="nav-number">1.</span> <span class="nav-text">浅复制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。"><span class="nav-number"></span> <span class="nav-text">使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">呆萌的smile_微笑</span>
+
+  
+</div>
+
+<!--
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

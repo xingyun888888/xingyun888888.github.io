@@ -219,6 +219,140 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/29/js对象的深浅复制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/29/js对象的深浅复制/" itemprop="url">js对象的深浅复制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T11:55:14+08:00">
+                2017-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h4><ul>
+<li>关于js对象的深浅复制，先来一段代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//对象浅复制</div><div class="line">function shadowCopy(obj)&#123;</div><div class="line">    if(typeof obj !== &apos;object&apos;) return ;</div><div class="line">    var newObj;</div><div class="line">    if(obj.constructor === Array)&#123;</div><div class="line">        newObj = [];</div><div class="line">    &#125; else &#123;</div><div class="line">        newObj = &#123;&#125;;</div><div class="line">        newObj.constructor = obj.constructor;//保留对象的constructor属性</div><div class="line">    &#125;</div><div class="line">    for(var prop in obj)&#123;</div><div class="line">        if(obj.hasOwnProperty(prop))&#123;</div><div class="line">          newObj[prop] = obj[prop];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return newObj;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>上述代码实现了浅复制，其中解决了不能正确实现数组的浅复制和复制操作丢失了对象的constructor属性的问题，那么什么是深浅复制呢？<br>从层次上对象的复制分为浅复制和深复制，浅复制是指只复制一层对象的属性，不会复制对象中的对象的属性，对象的深复制会复制对象中层层嵌套的对象的属性。复制对象时，除了要复制对象的属性外，还要兼顾到是否保留了对象的constructor属性，是否对每一种数据类型（JavaScript常见的数据类型有String,Number,Boolean,Data,RegExp,Array,Funtion,Object）都实现正确的复制。实现浅复制可以用Object.assign函数，👇下面具体讲讲这个函数。</p>
+<p>Object.assign函数<br>函数参数为一个目标对象（该对象作为最终的返回值）源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。拷贝过程中将调用源对象的getter方法，并在target对象上使用setter方法实现目标对象的拷贝。<br>Object.assign(target, …sources)</p>
+<h2 id="使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。"><a href="#使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。" class="headerlink" title="使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。"></a>使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。</h2><ul>
+<li>深复制</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">那么深复制可能就需要层层递归，复制对象的所有属性，包括对象属性的属性的属性，有人想出了用JSON的解析实现，如下代码：</div><div class="line"></div><div class="line">function deepCopy(obj)&#123;</div><div class="line">   if(typeof obj !== &quot;object&quot;)&#123; return ;&#125;</div><div class="line">   var str = JSON.stringify(obj);</div><div class="line">   return JSON.parse(str);</div><div class="line">&#125;</div><div class="line">👆上面的方法不适用的条件是</div><div class="line"></div><div class="line">需要考虑把函数，正则等特殊数据类型复制</div><div class="line">当前对象不支持JSON</div><div class="line">JSON复制会忽略掉值为undefined以及函数表达式</div><div class="line">可以看下面的栗子：</div><div class="line">var obj = &#123;</div><div class="line">    a: 1,</div><div class="line">    b: 2,</div><div class="line">    c: undefined,</div><div class="line">    sum: function() &#123; return a + b; &#125;</div><div class="line">&#125;;</div><div class="line">var obj2 = JSON.parse(JSON.stringify(obj));</div><div class="line">console.log(obj2);//输出：Object &#123;a: 1, b: 2&#125;</div><div class="line">这个时候还是要层层递归来不同情况不同分析来考虑的，最终的方案如下：</div><div class="line"></div><div class="line">//对象深复制</div><div class="line">function deepCopy(obj)&#123;</div><div class="line">    var newObj = obj.constructor === Array ? []:&#123;&#125;;</div><div class="line">    newObj.constructor = obj.constructor;</div><div class="line">    if(typeof obj !== &quot;object&quot;)&#123; </div><div class="line">        return ;</div><div class="line">    &#125; else if(window.JSON)&#123;</div><div class="line">        newObj = JSON.parse(JSON.stringify(obj));//若需要考虑特殊的数据类型，如正则，函数等，需把这个else if去掉即可</div><div class="line">    &#125; else &#123;</div><div class="line">        for(var prop in obj)&#123;</div><div class="line">            if(obj[prop].constructor === RegExp ||obj[prop].constructor === Date)&#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125; else if(typeof obj[prop] === &apos;object&apos;)&#123;</div><div class="line">                newObj[prop] = deepCopy(obj[prop]);//递归</div><div class="line">            &#125; else &#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; </div><div class="line">    return newObj;</div><div class="line">&#125;</div><div class="line">第三方库实现的深浅复制（推荐看文档源码，这里就不详讲了）</div><div class="line"></div><div class="line">jQuery.extend</div><div class="line">jQuery.extend()</div><div class="line"></div><div class="line">lodash 中 _.clone() / _.cloneDeep()</div><div class="line">_.clone()</div><div class="line">_.cloneDeep()</div></pre></td></tr></table></figure>
+<ul>
+<li>总结</li>
+</ul>
+<p><code>在我们平时应用过程中，浅复制优先考虑Object.assign函数，深复制优先考虑lodash中的_.cloneDeep()方法，如果是简单的深复制并符合JSON格式可以考虑JSON.parse(JSON.stringify(obj))。</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/28/java知识点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -598,6 +732,125 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/white-space,word-break,word-wrap的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/22/white-space,word-break,word-wrap的区别/" itemprop="url">white-space,word-break,word-wrap的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T11:55:14+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="white-space-word-break-word-wrap的区别"><a href="#white-space-word-break-word-wrap的区别" class="headerlink" title="white-space,word-break,word-wrap的区别"></a>white-space,word-break,word-wrap的区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">word-wrap是是否允许单词内进行断句，word-break是表明怎么样进行单词内的断句，</div><div class="line"></div><div class="line">前者只有一个break-word属性，后者有break-word何break-all这2个属性，</div><div class="line"></div><div class="line">但是在我测试的时候感觉二者的break-word没啥区别</div><div class="line"></div><div class="line">white-space则是指定是否允许换行以及是否保留空格等，它有normal、nowrap、pre、pre-wrap、pre-line这5个属性。</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/两栏三栏布局/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -676,125 +929,6 @@
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/white-space,word-break,word-wrap的区别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/22/white-space,word-break,word-wrap的区别/" itemprop="url">white-space,word-break,word-wrap的区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T11:55:14+08:00">
-                2017-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="white-space-word-break-word-wrap的区别"><a href="#white-space-word-break-word-wrap的区别" class="headerlink" title="white-space,word-break,word-wrap的区别"></a>white-space,word-break,word-wrap的区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">word-wrap是是否允许单词内进行断句，word-break是表明怎么样进行单词内的断句，</div><div class="line"></div><div class="line">前者只有一个break-word属性，后者有break-word何break-all这2个属性，</div><div class="line"></div><div class="line">但是在我测试的时候感觉二者的break-word没啥区别</div><div class="line"></div><div class="line">white-space则是指定是否允许换行以及是否保留空格等，它有normal、nowrap、pre、pre-wrap、pre-line这5个属性。</div></pre></td></tr></table></figure>
-          
         
       
     </div>
@@ -1417,137 +1551,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/17/前端面试题库(8)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/17/前端面试题库(8)/" itemprop="url">前端面试题库(8)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-17T10:55:14+08:00">
-                2017-09-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ul>
-<li><p>1.为什么要使用css预编译</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、css无法递归式定义</div><div class="line">2、解决复用性不够</div><div class="line">3、可以缓解浏览器兼容造成的冗余</div></pre></td></tr></table></figure>
-</li>
-<li><p>2.cookie,sessionStorage和localStorage的区别</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cookie用来在浏览器和服务器中传递并且总量很小</div><div class="line">sessionStorage和localStorage用于存储本地数据，存储较大</div><div class="line">localStorage是持久性存储</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/17/前端面试题库(8)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1597,7 +1600,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
