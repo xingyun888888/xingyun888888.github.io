@@ -69,19 +69,19 @@
 
 
 
-<meta name="description" content="本文首发于 http://liuxianan.com，原文地址：http://blog.liuxianan.com/js-download.html，转载请注明署名“liuxianan”并在显眼位置保留原文链接，谢谢！">
+<meta name="description" content="写在前面JS要实现下载功能，一般都是这么几个过程：生成下载的URL，动态创建一个A标签，并将其href指向生成的URL，然后触发A标签的单击事件，这样就会弹出下载对话框，从而实现了一个下载的功能。 这里所说的下载，有时候也可以理解为保存。出于安全考虑，JS肯定无法直接调用FileAPI写文件到磁盘，但是却可以通过下载来变相实现保存功能。 几个备用知识点JS触发单击事件既然是用A标签模拟，那么肯定要">
 <meta name="keywords" content="javascript,saveas,下载,对话框">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS弹出下载对话框以及实现常见文件类型的下载">
 <meta property="og:url" content="https://xingyun888888.github.io/2017/02/16/js-download/index.html">
 <meta property="og:site_name" content="呆萌的smile_微笑">
-<meta property="og:description" content="本文首发于 http://liuxianan.com，原文地址：http://blog.liuxianan.com/js-download.html，转载请注明署名“liuxianan”并在显眼位置保留原文链接，谢谢！">
+<meta property="og:description" content="写在前面JS要实现下载功能，一般都是这么几个过程：生成下载的URL，动态创建一个A标签，并将其href指向生成的URL，然后触发A标签的单击事件，这样就会弹出下载对话框，从而实现了一个下载的功能。 这里所说的下载，有时候也可以理解为保存。出于安全考虑，JS肯定无法直接调用FileAPI写文件到磁盘，但是却可以通过下载来变相实现保存功能。 几个备用知识点JS触发单击事件既然是用A标签模拟，那么肯定要">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://image.liuxianan.com/201704/20170410_202545_243_4578.png">
-<meta property="og:updated_time" content="2017-09-22T10:34:53.000Z">
+<meta property="og:updated_time" content="2017-12-04T10:24:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS弹出下载对话框以及实现常见文件类型的下载">
-<meta name="twitter:description" content="本文首发于 http://liuxianan.com，原文地址：http://blog.liuxianan.com/js-download.html，转载请注明署名“liuxianan”并在显眼位置保留原文链接，谢谢！">
+<meta name="twitter:description" content="写在前面JS要实现下载功能，一般都是这么几个过程：生成下载的URL，动态创建一个A标签，并将其href指向生成的URL，然后触发A标签的单击事件，这样就会弹出下载对话框，从而实现了一个下载的功能。 这里所说的下载，有时候也可以理解为保存。出于安全考虑，JS肯定无法直接调用FileAPI写文件到磁盘，但是却可以通过下载来变相实现保存功能。 几个备用知识点JS触发单击事件既然是用A标签模拟，那么肯定要">
 <meta name="twitter:image" content="http://image.liuxianan.com/201704/20170410_202545_243_4578.png">
 
 
@@ -299,10 +299,6 @@
 
           
 
-          
-              <div class="post-description">
-                  本文首发于 http://liuxianan.com，原文地址：http://blog.liuxianan.com/js-download.html，转载请注明署名“liuxianan”并在显眼位置保留原文链接，谢谢！
-              </div>
           
 
         </div>
