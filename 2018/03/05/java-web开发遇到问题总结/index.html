@@ -53,7 +53,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java," />
 
 
 
@@ -69,17 +69,18 @@
 
 
 
-<meta name="description" content="1.下一个function 实现对一个对象数组按任意属性排序，如对数组[{id:0,name:”java”},{id:1,name:”json”}]分别按id和name排序。  12345678910111213141516arr = [&amp;#123;id:5,name:&amp;quot;c&amp;quot;&amp;#125;,&amp;#123;id:1,name:&amp;quot;b&amp;quot;&amp;#125;]    var">
+<meta name="description" content="1.报错 There is no getter for property named &amp;#39;XXX&amp;#39; in &amp;#39;class java.lang.String&amp;#39;  问题解决参考">
+<meta name="keywords" content="java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="两道js题目">
-<meta property="og:url" content="https://xingyun888888.github.io/2017/07/10/常见前端面试题目/index.html">
+<meta property="og:title" content="java-web开发遇到问题总结">
+<meta property="og:url" content="https://xingyun888888.github.io/2018/03/05/java-web开发遇到问题总结/index.html">
 <meta property="og:site_name" content="呆萌的smile_微笑">
-<meta property="og:description" content="1.下一个function 实现对一个对象数组按任意属性排序，如对数组[{id:0,name:”java”},{id:1,name:”json”}]分别按id和name排序。  12345678910111213141516arr = [&amp;#123;id:5,name:&amp;quot;c&amp;quot;&amp;#125;,&amp;#123;id:1,name:&amp;quot;b&amp;quot;&amp;#125;]    var">
+<meta property="og:description" content="1.报错 There is no getter for property named &amp;#39;XXX&amp;#39; in &amp;#39;class java.lang.String&amp;#39;  问题解决参考">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-22T07:41:12.000Z">
+<meta property="og:updated_time" content="2018-03-09T04:12:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="两道js题目">
-<meta name="twitter:description" content="1.下一个function 实现对一个对象数组按任意属性排序，如对数组[{id:0,name:”java”},{id:1,name:”json”}]分别按id和name排序。  12345678910111213141516arr = [&amp;#123;id:5,name:&amp;quot;c&amp;quot;&amp;#125;,&amp;#123;id:1,name:&amp;quot;b&amp;quot;&amp;#125;]    var">
+<meta name="twitter:title" content="java-web开发遇到问题总结">
+<meta name="twitter:description" content="1.报错 There is no getter for property named &amp;#39;XXX&amp;#39; in &amp;#39;class java.lang.String&amp;#39;  问题解决参考">
 
 
 
@@ -109,13 +110,13 @@
 
 
 
-  <link rel="canonical" href="https://xingyun888888.github.io/2017/07/10/常见前端面试题目/"/>
+  <link rel="canonical" href="https://xingyun888888.github.io/2018/03/05/java-web开发遇到问题总结/"/>
 
 
 
 
 
-  <title>两道js题目 | 呆萌的smile_微笑</title>
+  <title>java-web开发遇到问题总结 | 呆萌的smile_微笑</title>
   
 
 
@@ -222,7 +223,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/07/10/常见前端面试题目/">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/05/java-web开发遇到问题总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="呆萌的smile_微笑">
@@ -239,7 +240,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">两道js题目</h1>
+          <h1 class="post-title" itemprop="name headline">java-web开发遇到问题总结</h1>
         
 
         <div class="post-meta">
@@ -251,8 +252,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T11:55:14+08:00">
-                2017-07-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T15:54:12+08:00">
+                2018-03-05
               </time>
             
 
@@ -261,6 +262,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -290,14 +313,11 @@
 
       
         <ul>
-<li>1.下一个function 实现对一个对象数组按任意属性排序，如对数组<br>[{id:0,name:”java”},{id:1,name:”json”}]分别按id和name排序。</li>
+<li><p>1.报错 <code>There is no getter for property named &#39;XXX&#39; in &#39;class java.lang.String&#39;</code></p>
+<p> <a href="http://blog.csdn.net/woshixuye/article/details/8820387" target="_blank" rel="external">问题解决参考</a></p>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">arr = [&#123;id:5,name:&quot;c&quot;&#125;,&#123;id:1,name:&quot;b&quot;&#125;]</div><div class="line"></div><div class="line">    var paixu = function(arr,prop)&#123;</div><div class="line">        var compare = function(a,b)&#123;</div><div class="line">            if(a[prop]&gt;b[prop])&#123;</div><div class="line">                return 1;</div><div class="line">            &#125;else if(a[prop]&lt;b[prop])&#123;</div><div class="line">                return -1;</div><div class="line">            &#125;else&#123;</div><div class="line">                return 0;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return arr.sort(compare)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    console.log(paixu(arr,&quot;name&quot;));</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<ul>
-<li>写一个function实现查找一个字符串中出现次数最多的字符。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">str = &quot;12342423423523grtrsdgfsgdfgdfgdfgdfgfdgfgdfg5252453453453451341243242t52t5rtertgergdrght&quot;;</div><div class="line"></div><div class="line">str = str.split(&quot;&quot;).sort().join(&quot;&quot;);</div><div class="line"></div><div class="line">max = 0;</div><div class="line">maxChar = &quot;&quot;;</div><div class="line">arr = str.match(/(.).*\1/g/);</div><div class="line">for(var i=0;i&lt;arr.length;i++)&#123;</div><div class="line">   if(arr[i].length&gt;max)&#123;</div><div class="line">     max = arr[i].length;</div><div class="line">     maxChar = arr[i][0];</div><div class="line">   &#125;</div><div class="line">   return maxChar;</div><div class="line">&#125;</div><div class="line">console.log(str.match(/(.).*\1/g));</div></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -312,6 +332,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
 
       
       
@@ -321,8 +347,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/18/nginx的配置总结/" rel="next" title="nginx配置总结">
-                <i class="fa fa-chevron-left"></i> nginx配置总结
+              <a href="/2018/01/10/java文件上传知识点总结/" rel="next" title="java文件上传知识点总结">
+                <i class="fa fa-chevron-left"></i> java文件上传知识点总结
               </a>
             
           </div>
@@ -330,10 +356,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/22/浏览器用js创建和下载文件/" rel="prev" title="浏览器用js创建和下载文件">
-                浏览器用js创建和下载文件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
