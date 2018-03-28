@@ -53,7 +53,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java," />
 
 
 
@@ -69,13 +69,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="呆萌的smile_微笑">
-<meta property="og:url" content="https://xingyun888888.github.io/index.html">
+<meta name="description" content="资料参考博客 FastDFS 安装和配置它是什么 FastDFS 介绍：http://www.oschina.net/p/fastdfs 官网下载 1：https://github.com/happyfish100/fastdfs/releases 官网下载 2：https://sourceforge.net/projects/fastdfs/files/ 官网下载 3：http://code.g">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fastDFS配置以及如何使用">
+<meta property="og:url" content="https://xingyun888888.github.io/2018/03/28/fastDFS配置以及如何使用/index.html">
 <meta property="og:site_name" content="呆萌的smile_微笑">
+<meta property="og:description" content="资料参考博客 FastDFS 安装和配置它是什么 FastDFS 介绍：http://www.oschina.net/p/fastdfs 官网下载 1：https://github.com/happyfish100/fastdfs/releases 官网下载 2：https://sourceforge.net/projects/fastdfs/files/ 官网下载 3：http://code.g">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://xingyun888888.github.io/2018/03/28/images/FastDFS-a-1.jpg">
+<meta property="og:updated_time" content="2018-03-28T09:31:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="呆萌的smile_微笑">
+<meta name="twitter:title" content="fastDFS配置以及如何使用">
+<meta name="twitter:description" content="资料参考博客 FastDFS 安装和配置它是什么 FastDFS 介绍：http://www.oschina.net/p/fastdfs 官网下载 1：https://github.com/happyfish100/fastdfs/releases 官网下载 2：https://sourceforge.net/projects/fastdfs/files/ 官网下载 3：http://code.g">
+<meta name="twitter:image" content="https://xingyun888888.github.io/2018/03/28/images/FastDFS-a-1.jpg">
 
 
 
@@ -105,13 +112,13 @@
 
 
 
-  <link rel="canonical" href="https://xingyun888888.github.io/"/>
+  <link rel="canonical" href="https://xingyun888888.github.io/2018/03/28/fastDFS配置以及如何使用/"/>
 
 
 
 
 
-  <title>呆萌的smile_微笑</title>
+  <title>fastDFS配置以及如何使用 | 呆萌的smile_微笑</title>
   
 
 
@@ -130,8 +137,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -204,9 +210,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -236,9 +242,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/28/fastDFS配置以及如何使用/" itemprop="url">fastDFS配置以及如何使用</a></h1>
+          <h1 class="post-title" itemprop="name headline">fastDFS配置以及如何使用</h1>
         
 
         <div class="post-meta">
@@ -310,9 +314,7 @@
       
 
       
-        
-          
-            <p><a href="https://github.com/judasn/Linux-Tutorial" target="_blank" rel="external">资料</a><br><a href="https://github.com/happyfish100/fastdfs-client-java" target="_blank" rel="external">参考博客</a></p>
+        <p><a href="https://github.com/judasn/Linux-Tutorial" target="_blank" rel="external">资料</a><br><a href="https://github.com/happyfish100/fastdfs-client-java" target="_blank" rel="external">参考博客</a></p>
 <h1 id="FastDFS-安装和配置"><a href="#FastDFS-安装和配置" class="headerlink" title="FastDFS 安装和配置"></a>FastDFS 安装和配置</h1><h2 id="它是什么"><a href="#它是什么" class="headerlink" title="它是什么"></a>它是什么</h2><ul>
 <li>FastDFS 介绍：<a href="http://www.oschina.net/p/fastdfs" target="_blank" rel="external">http://www.oschina.net/p/fastdfs</a></li>
 <li>官网下载 1：<a href="https://github.com/happyfish100/fastdfs/releases" target="_blank" rel="external">https://github.com/happyfish100/fastdfs/releases</a></li>
@@ -504,8 +506,6 @@ ClientGlobal.initByTrackers(trackerServers);
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ClientGlobal.configInfo(): &#123;</div><div class="line">  g_connect_timeout(ms) = 5000</div><div class="line">  g_network_timeout(ms) = 30000</div><div class="line">  g_charset = UTF-8</div><div class="line">  g_anti_steal_token = false</div><div class="line">  g_secret_key = FastDFS1234567890</div><div class="line">  g_tracker_http_port = 80</div><div class="line">  trackerServers = 10.0.11.101:22122,10.0.11.102:22122</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="碰到几个问题"><a href="#碰到几个问题" class="headerlink" title="碰到几个问题"></a>碰到几个问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1.需要电脑打开防火墙 端口22122 23000</div><div class="line">2.tracker.server ip必须是外网ip</div></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
     
@@ -520,633 +520,36 @@ ClientGlobal.initByTrackers(trackerServers);
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/05/java-web开发遇到问题总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/05/java-web开发遇到问题总结/" itemprop="url">java-web开发遇到问题总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T15:54:12+08:00">
-                2018-03-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/java/" rel="tag"># java</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>1.报错 <code>There is no getter for property named &#39;XXX&#39; in &#39;class java.lang.String&#39;</code></p>
-<p> <a href="http://blog.csdn.net/woshixuye/article/details/8820387" target="_blank" rel="external">问题解决参考</a></p>
-</li>
-<li><p>2.<a href="https://www.cnblogs.com/kongbailin/p/7668631.html" target="_blank" rel="external">tomcat部署项目-静态网页项目</a></p>
-</li>
-<li><p>3.<a href="https://www.cnblogs.com/ysocean/p/6893446.html" target="_blank" rel="external">tomcat部署项目的三种方式</a></p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/05/faceDetect项目开发资源整理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/05/faceDetect项目开发资源整理/" itemprop="url">faceDetect项目开发资源整理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T15:54:12+08:00">
-                2018-03-05
-              </time>
+              <a href="/2018/03/05/java-web开发遇到问题总结/" rel="next" title="java-web开发遇到问题总结">
+                <i class="fa fa-chevron-left"></i> java-web开发遇到问题总结
+              </a>
             
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>1.angular5.0参考文档</p>
-<p> <a href="https://www.angular.cn/" target="_blank" rel="external">angular官方文档中文版</a></p>
-<p> <a href="https://segmentfault.com/a/1190000009733649" target="_blank" rel="external">Angular 4 快速入门</a></p>
-<p> <a href="https://segmentfault.com/blog/angular4" target="_blank" rel="external">angular4.x修仙之路</a></p>
-</li>
-<li><p>2.<a href="https://ng.ant.design/#/" target="_blank" rel="external">基于ng5.0-ui组件库</a></p>
-</li>
-<li><p>3.<a href="https://xieziyu.github.io/ngx-echarts/#/home" target="_blank" rel="external">基于angular的echarts组件文档</a></p>
-</li>
-<li><p>4.<a href="https://segmentfault.com/a/1190000007874819" target="_blank" rel="external">angular-cli使用教程参考指南</a> </p>
-</li>
-<li><p>5.<a href="https://zhuanlan.zhihu.com/p/29005629" target="_blank" rel="external">angular-cli打包优化</a></p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/01/10/java文件上传知识点总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/10/java文件上传知识点总结/" itemprop="url">java文件上传知识点总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T15:54:12+08:00">
-                2018-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>1.<a href="https://www.cnblogs.com/ricciozhang/articles/4830427.html" target="_blank" rel="external">文件上传到局域网另一台计算机(针对window)参考链接</a></p>
-<p>2.<a href="https://juejin.im/post/594b31da1b69e60062a199fa" target="_blank" rel="external">springmvc文件上传</a></p>
-<p>3.<a href="https://www.cnblogs.com/jiangxifanzhouyudu/p/6859879.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">tomcat项目部署的方式</a></p>
-<ul>
-<li>碰到的问题总结</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">如何获取服务器文件夹的路径:</div><div class="line">request.getSession().getServletContext().getRealPath(&quot;/&quot;);</div><div class="line"></div><div class="line">获取项目名称:</div><div class="line">contextPath = request.getContextPath();   </div><div class="line"></div><div class="line">如何获得服务器项目名称:</div><div class="line">request.getServletContext().getContextPath();</div><div class="line"></div><div class="line">如何服务器访问路径:</div><div class="line">request.getScheme()+&quot;://&quot;+request.getServerName()+&quot;:&quot;+request.getServerPort()+contextPath+&quot;/&quot;;</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/10/java文件上传知识点总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/12/01/如何在swiper内制作css3动画效果/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/01/如何在swiper内制作css3动画效果/" itemprop="url">如何在swiper内制作css3动画效果</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T17:37:12+08:00">
-                2017-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p><a href="http://www.swiper.com.cn/usage/animate/index.html" target="_blank" rel="external">以下内容参考链接</a></p>
-<ul>
-<li><h4 id="在需要添加动画的页面里面引入以下几个文件-版本对应"><a href="#在需要添加动画的页面里面引入以下几个文件-版本对应" class="headerlink" title="在需要添加动画的页面里面引入以下几个文件 版本对应"></a>在需要添加动画的页面里面引入以下几个文件 版本对应</h4></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&quot;../js/swiper.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;../js/swiper.animate.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">//**这里引入jquery或者zepto.js都可以**//</div><div class="line">&lt;script src=&quot;../js/jquery-1.9.1.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/animate.min.css&quot;&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li><h5 id="接着在页面js部分添加-按业务需求"><a href="#接着在页面js部分添加-按业务需求" class="headerlink" title="接着在页面js部分添加(按业务需求)"></a>接着在页面js部分添加(按业务需求)</h5></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var mySwiper = new Swiper(&apos;.swiper-container&apos;,&#123;</div><div class="line">          autoplay : 5000,//自动切换时间</div><div class="line">          pagination : &apos;.swiper-pagination&apos;,</div><div class="line">          //pagination : &apos;#swiper-pagination1&apos;,</div><div class="line">          onInit: function(swiper) &#123;//轮播初始化时候执行动画</div><div class="line">              swiperAnimateCache(swiper);</div><div class="line">              swiperAnimate(swiper);</div><div class="line">          &#125;,        </div><div class="line">          onSlideChangeEnd: function(swiper) &#123;//轮播切换到最后一张的时候重新执行</div><div class="line">              swiperAnimate(swiper);</div><div class="line">          &#125;</div><div class="line">      &#125;)</div></pre></td></tr></table></figure>
-<ul>
-<li><h5 id="在需要执行的动画的元素上面添加class"><a href="#在需要执行的动画的元素上面添加class" class="headerlink" title="在需要执行的动画的元素上面添加class:"></a>在需要执行的动画的元素上面添加class:</h5></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">给需要执行动画的元素上添加class (&quot;ani&quot;、&quot;animated&quot;)  </div><div class="line"></div><div class="line">然后可以添加animate.css里面提供的一些动画</div><div class="line"></div><div class="line">如果animate.css里面的动画不能满足需求 也可以自定义一些动画</div><div class="line"></div><div class="line">直接在执行动画的元素对应的css里面添加自定义的动画样式</div><div class="line"></div><div class="line">还可以在元素上面配置一下几个参数</div><div class="line"></div><div class="line">swiper-animate-effect：切换效果，例如 fadeInUp </div><div class="line">swiper-animate-duration：可选，动画持续时间（单位秒），例如 0.5s</div><div class="line">swiper-animate-delay：可选，动画延迟时间（单位秒），例如 0.3s</div></pre></td></tr></table></figure>
-<ul>
-<li><h5 id="下面是案例"><a href="#下面是案例" class="headerlink" title="下面是案例"></a>下面是案例</h5></li>
-</ul>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/26/15ff886931f765d5?w=982&amp;h=118&amp;f=png&amp;s=13669" alt=""></p>
-<blockquote>
-<p>作者：xingyun</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1156,649 +559,11 @@ ClientGlobal.initByTrackers(trackerServers);
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/11/24/样式分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/24/样式分析/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-24T19:36:47+08:00">
-                2017-11-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/29/js对象的深浅复制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/29/js对象的深浅复制/" itemprop="url">js对象的深浅复制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T11:55:14+08:00">
-                2017-09-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h4><ul>
-<li>关于js对象的深浅复制，先来一段代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//对象浅复制</div><div class="line">function shadowCopy(obj)&#123;</div><div class="line">    if(typeof obj !== &apos;object&apos;) return ;</div><div class="line">    var newObj;</div><div class="line">    if(obj.constructor === Array)&#123;</div><div class="line">        newObj = [];</div><div class="line">    &#125; else &#123;</div><div class="line">        newObj = &#123;&#125;;</div><div class="line">        newObj.constructor = obj.constructor;//保留对象的constructor属性</div><div class="line">    &#125;</div><div class="line">    for(var prop in obj)&#123;</div><div class="line">        if(obj.hasOwnProperty(prop))&#123;</div><div class="line">          newObj[prop] = obj[prop];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return newObj;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>上述代码实现了浅复制，其中解决了不能正确实现数组的浅复制和复制操作丢失了对象的constructor属性的问题，那么什么是深浅复制呢？<br>从层次上对象的复制分为浅复制和深复制，浅复制是指只复制一层对象的属性，不会复制对象中的对象的属性，对象的深复制会复制对象中层层嵌套的对象的属性。复制对象时，除了要复制对象的属性外，还要兼顾到是否保留了对象的constructor属性，是否对每一种数据类型（JavaScript常见的数据类型有String,Number,Boolean,Data,RegExp,Array,Funtion,Object）都实现正确的复制。实现浅复制可以用Object.assign函数，👇下面具体讲讲这个函数。</p>
-<p>Object.assign函数<br>函数参数为一个目标对象（该对象作为最终的返回值）源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。拷贝过程中将调用源对象的getter方法，并在target对象上使用setter方法实现目标对象的拷贝。<br>Object.assign(target, …sources)</p>
-<h2 id="使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。"><a href="#使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。" class="headerlink" title="使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。"></a>使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。</h2></blockquote>
-<ul>
-<li>深复制</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">那么深复制可能就需要层层递归，复制对象的所有属性，包括对象属性的属性的属性，有人想出了用JSON的解析实现，如下代码：</div><div class="line"></div><div class="line">function deepCopy(obj)&#123;</div><div class="line">   if(typeof obj !== &quot;object&quot;)&#123; return ;&#125;</div><div class="line">   var str = JSON.stringify(obj);</div><div class="line">   return JSON.parse(str);</div><div class="line">&#125;</div><div class="line">👆上面的方法不适用的条件是</div><div class="line"></div><div class="line">需要考虑把函数，正则等特殊数据类型复制</div><div class="line">当前对象不支持JSON</div><div class="line">JSON复制会忽略掉值为undefined以及函数表达式</div><div class="line">可以看下面的栗子：</div><div class="line">var obj = &#123;</div><div class="line">    a: 1,</div><div class="line">    b: 2,</div><div class="line">    c: undefined,</div><div class="line">    sum: function() &#123; return a + b; &#125;</div><div class="line">&#125;;</div><div class="line">var obj2 = JSON.parse(JSON.stringify(obj));</div><div class="line">console.log(obj2);//输出：Object &#123;a: 1, b: 2&#125;</div><div class="line">这个时候还是要层层递归来不同情况不同分析来考虑的，最终的方案如下：</div><div class="line"></div><div class="line">//对象深复制</div><div class="line">function deepCopy(obj)&#123;</div><div class="line">    var newObj = obj.constructor === Array ? []:&#123;&#125;;</div><div class="line">    newObj.constructor = obj.constructor;</div><div class="line">    if(typeof obj !== &quot;object&quot;)&#123; </div><div class="line">        return ;</div><div class="line">    &#125; else if(window.JSON)&#123;</div><div class="line">        newObj = JSON.parse(JSON.stringify(obj));//若需要考虑特殊的数据类型，如正则，函数等，需把这个else if去掉即可</div><div class="line">    &#125; else &#123;</div><div class="line">        for(var prop in obj)&#123;</div><div class="line">            if(obj[prop].constructor === RegExp ||obj[prop].constructor === Date)&#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125; else if(typeof obj[prop] === &apos;object&apos;)&#123;</div><div class="line">                newObj[prop] = deepCopy(obj[prop]);//递归</div><div class="line">            &#125; else &#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; </div><div class="line">    return newObj;</div><div class="line">&#125;</div><div class="line">第三方库实现的深浅复制（推荐看文档源码，这里就不详讲了）</div><div class="line"></div><div class="line">jQuery.extend</div><div class="line">jQuery.extend()</div><div class="line"></div><div class="line">lodash 中 _.clone() / _.cloneDeep()</div><div class="line">_.clone()</div><div class="line">_.cloneDeep()</div></pre></td></tr></table></figure>
-<ul>
-<li>总结</li>
-</ul>
-<p><code>在我们平时应用过程中，浅复制优先考虑Object.assign函数，深复制优先考虑lodash中的_.cloneDeep()方法，如果是简单的深复制并符合JSON格式可以考虑JSON.parse(JSON.stringify(obj))。</code></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/28/java知识点/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/28/java知识点/" itemprop="url">java知识点收集</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-28T11:55:14+08:00">
-                2017-09-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>maven  </p>
-<p><a href="http://jiaxiaoxuan.top/2017/09/24/maven%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/#more" target="_blank" rel="external">maven详细介绍</a></p>
-</li>
-</ul>
-<p>  <a href="http://jiaxiaoxuan.top/2017/09/24/maven%E9%98%BF%E9%87%8C%E4%BA%91%E8%AE%BE%E7%BD%AE/#more" target="_blank" rel="external">maven阿里云设置</a></p>
-<p>  <a href="http://jiaxiaoxuan.top/2017/09/24/jvm%E8%B0%83%E4%BC%98/" target="_blank" rel="external">jvm调优</a></p>
-<p>  <a href="https://www.cnblogs.com/CEO-H/p/7794306.html" target="_blank" rel="external">linux如何查看端口号被哪个进程占用</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/26/前端上传图片预览/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/26/前端上传图片预览/" itemprop="url">前端上传图片预览</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T11:55:14+08:00">
-                2017-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>此文将介绍两种方法来实现前端上传图片预览。</p>
-<ul>
-<li>方法1：FileReader</li>
-</ul>
-<blockquote>
-<p>FileReader对象允许Web应用程序异步读取存储在计算机上的文件（或原始数据缓冲区）的内容，使用File或Blob对象指定要读取的文件。其中File对象可以是来自用户在一个<input>元素上选择文件返回的FileList对象，也可以来自拖放操作生成的DataTransfer对象，还可以是来自一个HTMLCanvasElement上执行mozGetAsFile()方法后返回结果。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">demo示例：</div><div class="line"></div><div class="line">var oFileReader = new FileReader(); // 创建一个FileReader对象</div><div class="line">var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; // 验证图片的正则</div><div class="line">var oPreview = document.getElementsByClassName(&apos;img-thumbnail&apos;)[0]; // 预览图</div><div class="line">var oUpload = document.getElementsByClassName(&apos;file-upload&apos;)[0]; // 图片上传</div><div class="line"></div><div class="line">oFileReader.onload = function (event) &#123;</div><div class="line">    oPreview.src = event.target.result; // 替换预览图的src</div><div class="line">&#125;</div><div class="line"></div><div class="line">oUpload.onchange = function loadImgFile() &#123;</div><div class="line">    var oFile = oUpload.files[0];</div><div class="line"></div><div class="line">    if (!rFilter.test(oFile.type)) &#123;</div><div class="line">        alert(&apos;必须上传图片文件！&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if (window.FileReader) &#123;</div><div class="line">        /*</div><div class="line">        读取指定的Blob对象或File对象中的内容。</div><div class="line">        当读取操作完成时，会自动尝试去调用onloadend事件。</div><div class="line">        同时，result属性将包含一个data:URL表示读取的文件的内容。</div><div class="line">         */</div><div class="line">        oFileReader.readAsDataURL(oFile);</div><div class="line">    &#125; else if (navigator.appName === &apos;Microsoft Internet Explorer&apos;) &#123; // IE浏览器</div><div class="line">        // IE10以下版本不支持FileReader()构造函数，利用滤镜兼容旧版本的IE</div><div class="line">        oPreview.style.filter = &apos;progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)&apos;;</div><div class="line">        oPreview.filters.item(&quot;DXImageTransform.Microsoft.AlphaImageLoader&quot;).src = oUpload.value;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>方法2：URL.createObjectURL(blob)</li>
-</ul>
-<blockquote>
-<p>URL.createObjectURL(blob)静态方法会创建一个DOMString，其中包含一个表示参数中给出的对象的URL。这个URL的生命周期和创建它的窗口中的document绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">demo示例：</div><div class="line">var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;</div><div class="line">var oPreview = document.getElementsByClassName(&apos;img-thumbnail&apos;)[0]; // 预览图</div><div class="line">var oUpload = document.getElementsByClassName(&apos;file-upload&apos;)[0]; // 图片上传</div><div class="line"></div><div class="line">/**</div><div class="line"> * 获取dataURL</div><div class="line"> */</div><div class="line">function createObjectURL(blob) &#123;</div><div class="line">    return window[window.webkitURL ? &apos;webkitURL&apos; : &apos;URL&apos;][&apos;createObjectURL&apos;](blob);</div><div class="line">&#125;</div><div class="line"></div><div class="line">oUpload.onchange = function () &#123;</div><div class="line">    var oFile = oUpload.files[0];</div><div class="line"></div><div class="line">    if (!rFilter.test(oFile.type)) &#123;</div><div class="line">        alert(&apos;必须上传图片文件！&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var imgDataURL;</div><div class="line">    if (navigator.appName === &apos;&apos;) &#123;</div><div class="line">        // IE10以下版本不支持FileReader()构造函数，利用滤镜兼容旧版本的IE</div><div class="line">        imgDataURL = oUpload.value;</div><div class="line"></div><div class="line">        oPreview.style.filter = &apos;progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)&apos;;</div><div class="line">        oPreview.filters.item(&quot;DXImageTransform.Microsoft.AlphaImageLoader&quot;).src = imgDataURL;</div><div class="line">    &#125; else &#123;</div><div class="line">        imgDataURL = createObjectURL(oFile);</div><div class="line">        oPreview.src = imgDataURL;</div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/26/CentOS6.5 安装vsftpd (ftp工具连接阿里云服务器)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/26/CentOS6.5 安装vsftpd (ftp工具连接阿里云服务器)/" itemprop="url">CentOS6.5 安装vsftpd (ftp工具连接阿里云服务器)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T11:55:14+08:00">
-                2017-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
 
 
           </div>
@@ -1806,6 +571,10 @@ ClientGlobal.initByTrackers(trackerServers);
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -1826,8 +595,17 @@ ClientGlobal.initByTrackers(trackerServers);
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">呆萌的smile_微笑</p>
@@ -1888,6 +666,22 @@ ClientGlobal.initByTrackers(trackerServers);
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FastDFS-安装和配置"><span class="nav-number">1.</span> <span class="nav-text">FastDFS 安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#它是什么"><span class="nav-number">1.1.</span> <span class="nav-text">它是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会出现"><span class="nav-number">1.2.</span> <span class="nav-text">为什么会出现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些人喜欢它"><span class="nav-number">1.3.</span> <span class="nav-text">哪些人喜欢它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些人不喜欢它"><span class="nav-number">1.4.</span> <span class="nav-text">哪些人不喜欢它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么学习它"><span class="nav-number">1.5.</span> <span class="nav-text">为什么学习它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同类工具"><span class="nav-number">1.6.</span> <span class="nav-text">同类工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单机安装部署（CentOS-6-7-环境）"><span class="nav-number">1.6.1.</span> <span class="nav-text">单机安装部署（CentOS 6.7 环境）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多机安装部署（CentOS-6-7-环境）"><span class="nav-number">1.6.2.</span> <span class="nav-text">多机安装部署（CentOS 6.7 环境）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料"><span class="nav-number">1.7.</span> <span class="nav-text">资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ant从源码构建"><span class="nav-number">1.8.</span> <span class="nav-text">使用ant从源码构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用maven从源码安装"><span class="nav-number">1.9.</span> <span class="nav-text">使用maven从源码安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用maven从jar文件安装"><span class="nav-number">1.10.</span> <span class="nav-text">使用maven从jar文件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在您的maven项目pom-xml中添加依赖"><span class="nav-number">1.11.</span> <span class="nav-text">在您的maven项目pom.xml中添加依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conf-配置文件、所在目录、加载优先顺序"><span class="nav-number">1.12.</span> <span class="nav-text">.conf 配置文件、所在目录、加载优先顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#properties-配置文件、所在目录、加载优先顺序"><span class="nav-number">1.13.</span> <span class="nav-text">.properties 配置文件、所在目录、加载优先顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载配置示例"><span class="nav-number">1.14.</span> <span class="nav-text">加载配置示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查加载配置结果："><span class="nav-number">1.15.</span> <span class="nav-text">检查加载配置结果：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#碰到几个问题"><span class="nav-number">1.16.</span> <span class="nav-text">碰到几个问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
