@@ -219,6 +219,140 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/26/前端上传图片预览/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/26/前端上传图片预览/" itemprop="url">前端上传图片预览</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T11:55:14+08:00">
+                2017-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文将介绍两种方法来实现前端上传图片预览。</p>
+<ul>
+<li>方法1：FileReader</li>
+</ul>
+<blockquote>
+<p>FileReader对象允许Web应用程序异步读取存储在计算机上的文件（或原始数据缓冲区）的内容，使用File或Blob对象指定要读取的文件。其中File对象可以是来自用户在一个<input>元素上选择文件返回的FileList对象，也可以来自拖放操作生成的DataTransfer对象，还可以是来自一个HTMLCanvasElement上执行mozGetAsFile()方法后返回结果。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">demo示例：</div><div class="line"></div><div class="line">var oFileReader = new FileReader(); // 创建一个FileReader对象</div><div class="line">var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; // 验证图片的正则</div><div class="line">var oPreview = document.getElementsByClassName(&apos;img-thumbnail&apos;)[0]; // 预览图</div><div class="line">var oUpload = document.getElementsByClassName(&apos;file-upload&apos;)[0]; // 图片上传</div><div class="line"></div><div class="line">oFileReader.onload = function (event) &#123;</div><div class="line">    oPreview.src = event.target.result; // 替换预览图的src</div><div class="line">&#125;</div><div class="line"></div><div class="line">oUpload.onchange = function loadImgFile() &#123;</div><div class="line">    var oFile = oUpload.files[0];</div><div class="line"></div><div class="line">    if (!rFilter.test(oFile.type)) &#123;</div><div class="line">        alert(&apos;必须上传图片文件！&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if (window.FileReader) &#123;</div><div class="line">        /*</div><div class="line">        读取指定的Blob对象或File对象中的内容。</div><div class="line">        当读取操作完成时，会自动尝试去调用onloadend事件。</div><div class="line">        同时，result属性将包含一个data:URL表示读取的文件的内容。</div><div class="line">         */</div><div class="line">        oFileReader.readAsDataURL(oFile);</div><div class="line">    &#125; else if (navigator.appName === &apos;Microsoft Internet Explorer&apos;) &#123; // IE浏览器</div><div class="line">        // IE10以下版本不支持FileReader()构造函数，利用滤镜兼容旧版本的IE</div><div class="line">        oPreview.style.filter = &apos;progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)&apos;;</div><div class="line">        oPreview.filters.item(&quot;DXImageTransform.Microsoft.AlphaImageLoader&quot;).src = oUpload.value;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>方法2：URL.createObjectURL(blob)</li>
+</ul>
+<blockquote>
+<p>URL.createObjectURL(blob)静态方法会创建一个DOMString，其中包含一个表示参数中给出的对象的URL。这个URL的生命周期和创建它的窗口中的document绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">demo示例：</div><div class="line">var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;</div><div class="line">var oPreview = document.getElementsByClassName(&apos;img-thumbnail&apos;)[0]; // 预览图</div><div class="line">var oUpload = document.getElementsByClassName(&apos;file-upload&apos;)[0]; // 图片上传</div><div class="line"></div><div class="line">/**</div><div class="line"> * 获取dataURL</div><div class="line"> */</div><div class="line">function createObjectURL(blob) &#123;</div><div class="line">    return window[window.webkitURL ? &apos;webkitURL&apos; : &apos;URL&apos;][&apos;createObjectURL&apos;](blob);</div><div class="line">&#125;</div><div class="line"></div><div class="line">oUpload.onchange = function () &#123;</div><div class="line">    var oFile = oUpload.files[0];</div><div class="line"></div><div class="line">    if (!rFilter.test(oFile.type)) &#123;</div><div class="line">        alert(&apos;必须上传图片文件！&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var imgDataURL;</div><div class="line">    if (navigator.appName === &apos;&apos;) &#123;</div><div class="line">        // IE10以下版本不支持FileReader()构造函数，利用滤镜兼容旧版本的IE</div><div class="line">        imgDataURL = oUpload.value;</div><div class="line"></div><div class="line">        oPreview.style.filter = &apos;progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)&apos;;</div><div class="line">        oPreview.filters.item(&quot;DXImageTransform.Microsoft.AlphaImageLoader&quot;).src = imgDataURL;</div><div class="line">    &#125; else &#123;</div><div class="line">        imgDataURL = createObjectURL(oFile);</div><div class="line">        oPreview.src = imgDataURL;</div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/26/CentOS6.5 安装vsftpd (ftp工具连接阿里云服务器)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -291,6 +425,125 @@
         
           
             
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/white-space,word-break,word-wrap的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/22/white-space,word-break,word-wrap的区别/" itemprop="url">white-space,word-break,word-wrap的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T11:55:14+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="white-space-word-break-word-wrap的区别"><a href="#white-space-word-break-word-wrap的区别" class="headerlink" title="white-space,word-break,word-wrap的区别"></a>white-space,word-break,word-wrap的区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">word-wrap是是否允许单词内进行断句，word-break是表明怎么样进行单词内的断句，</div><div class="line"></div><div class="line">前者只有一个break-word属性，后者有break-word何break-all这2个属性，</div><div class="line"></div><div class="line">但是在我测试的时候感觉二者的break-word没啥区别</div><div class="line"></div><div class="line">white-space则是指定是否允许换行以及是否保留空格等，它有normal、nowrap、pre、pre-wrap、pre-line这5个属性。</div></pre></td></tr></table></figure>
           
         
       
@@ -416,125 +669,6 @@
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/white-space,word-break,word-wrap的区别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/22/white-space,word-break,word-wrap的区别/" itemprop="url">white-space,word-break,word-wrap的区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T11:55:14+08:00">
-                2017-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="white-space-word-break-word-wrap的区别"><a href="#white-space-word-break-word-wrap的区别" class="headerlink" title="white-space,word-break,word-wrap的区别"></a>white-space,word-break,word-wrap的区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">word-wrap是是否允许单词内进行断句，word-break是表明怎么样进行单词内的断句，</div><div class="line"></div><div class="line">前者只有一个break-word属性，后者有break-word何break-all这2个属性，</div><div class="line"></div><div class="line">但是在我测试的时候感觉二者的break-word没啥区别</div><div class="line"></div><div class="line">white-space则是指定是否允许换行以及是否保留空格等，它有normal、nowrap、pre、pre-wrap、pre-line这5个属性。</div></pre></td></tr></table></figure>
-          
         
       
     </div>
@@ -1362,133 +1496,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/14/前端面试题库(5)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/14/前端面试题库(5)/" itemprop="url">前端面试题库(5)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T11:55:14+08:00">
-                2017-09-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ul>
-<li>1.ng中如何配置路由，$scope和$rootscope的原理</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">ng中如何配置路由?</div><div class="line"></div><div class="line">1)使用内置路由模块ng-route</div><div class="line">      var app = angular.module(&apos;ngRouteExample&apos;, [&apos;ngRoute&apos;])</div><div class="line">       .controller(&apos;MainController&apos;, function($scope) &#123;</div><div class="line">       &#125;)</div><div class="line">       .config(function($routeProvider, $locationProvider) &#123;</div><div class="line">         $routeProvider</div><div class="line">             .when(&apos;/users&apos;, &#123;</div><div class="line">                 templateUrl: &apos;user-list.html&apos;,</div><div class="line">                 controller: &apos;UserListCtrl&apos;</div><div class="line">             &#125;)</div><div class="line">             .when(&apos;/users/:username&apos;, &#123;</div><div class="line">                 templateUrl: &apos;user.html&apos;,</div><div class="line">                 controller: &apos;UserCtrl&apos;</div><div class="line">             &#125;);</div><div class="line">   </div><div class="line">           // configure html5</div><div class="line">           $locationProvider.html5Mode(true);</div><div class="line">       &#125;);</div><div class="line">             </div><div class="line">2)第三方路由模块ui-route</div><div class="line"></div><div class="line">   $stateProvider</div><div class="line">       .state(&apos;contacts&apos;, &#123;</div><div class="line">           url: &apos;/contacts&apos;,</div><div class="line">           template: &apos;contacts.html&apos;,</div><div class="line">           controller: &apos;ContactCtrl&apos;</div><div class="line">       &#125;)</div><div class="line">       .state(&apos;contacts.detail&apos;, &#123;</div><div class="line">           url: &quot;/contacts/:contactId&quot;,</div><div class="line">           templateUrl: &apos;contacts.detail.html&apos;,</div><div class="line">           controller: function ($stateParams) &#123;</div><div class="line">               // If we got here from a url of /contacts/42</div><div class="line">               $stateParams.contactId === &quot;42&quot;;</div><div class="line">           &#125;</div><div class="line">       &#125;);</div><div class="line"></div><div class="line">scope是angularJS中的作用域(其实就是存储数据的地方)，</div><div class="line">很类似javascript的原型链。搜索的时候，优先找自己的scope，</div><div class="line">如果没有找到就沿着作用域链向上搜索，直至到达根作用域rootScope。</div><div class="line"></div><div class="line">$rootScope是由angularJS加载模块的时候自动创建的，</div><div class="line">每个模块只会有1个rootScope。rootScope创建好会以服务的形式加入到$injector中。</div><div class="line">也就是说通过$injector.get(&quot;$rootScope&quot;);能够获取到某个模块的根作用域。</div><div class="line">更准确的来说，$rootScope是由angularJS的核心模块ng创建的。</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/14/前端面试题库(5)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1538,7 +1545,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -219,6 +219,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/02/16/js-download/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/16/js-download/" itemprop="url">JS弹出下载对话框以及实现常见文件类型的下载</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-16T21:09:19+08:00">
+                2017-02-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>JS要实现下载功能，一般都是这么几个过程：生成下载的URL，动态创建一个A标签，并将其href指向生成的URL，然后触发A标签的单击事件，这样就会弹出下载对话框，从而实现了一个下载的功能。</p>
+<p>这里所说的下载，有时候也可以理解为保存。出于安全考虑，JS肯定无法直接调用FileAPI写文件到磁盘，但是却可以通过下载来变相实现保存功能。</p>
+<h1 id="几个备用知识点"><a href="#几个备用知识点" class="headerlink" title="几个备用知识点"></a>几个备用知识点</h1><h2 id="JS触发单击事件"><a href="#JS触发单击事件" class="headerlink" title="JS触发单击事件"></a>JS触发单击事件</h2><p>既然是用A标签模拟，那么肯定要知道JS如何主动触发单击事件。</p>
+<p>最简单的触发单击事件肯定是<code>elem.click()</code>，平时在不需要考虑兼容性的场合我都是这么干的，但是毕竟这个方法有兼容性（具体兼容性如何没做过测试），所以还是要掌握一个通用的方法。</p>
+<p>以下代码是网上比较容易找到的一段代码，我在前面加了一段<code>MouseEvent</code>的判断：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 考虑兼容性的触发单击事件</span></div><div class="line"><span class="comment"> * @param elem 要触发单击事件的DOM对象</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fireClickEvent</span>(<span class="params">elem</span>)</span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	<span class="keyword">var</span> event;</div><div class="line">	<span class="keyword">if</span>(<span class="built_in">window</span>.MouseEvent) event = <span class="keyword">new</span> MouseEvent(<span class="string">'click'</span>);</div><div class="line">	<span class="keyword">else</span></div><div class="line">	&#123;</div><div class="line">		event = <span class="built_in">document</span>.createEvent(<span class="string">'MouseEvents'</span>);</div><div class="line">		event.initMouseEvent(<span class="string">'click'</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="built_in">window</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="number">0</span>, <span class="literal">null</span>);</div><div class="line">	&#125;</div><div class="line">	elem.dispatchEvent(event);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="HTML5的download属性"><a href="#HTML5的download属性" class="headerlink" title="HTML5的download属性"></a>HTML5的download属性</h2><p>这个属性很重要，它可以指定下载文件名，并且可以告诉浏览器目标链接是一个下载链接，不是一个普通链接，我们看下面代码就能看出区别了：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"data:text/txt;charset=utf-8,测试下载纯文本"</span> <span class="attr">download</span>=<span class="string">"测试.txt"</span> &gt;</span>下载1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"data:text/txt;charset=utf-8,测试下载纯文本"</span>&gt;</span>下载2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>可以发现，<code>下载1</code>按钮能够实现下载，点击<code>下载2</code>链接时直接在浏览器打开文件内容了。</p>
+<p>补充说明：</p>
+<ul>
+<li><code>file:///</code>模式下貌似不生效；</li>
+<li>链接指向一些第三方链接时也不会生效，具体有待研究；</li>
+</ul>
+<h2 id="JS弹出下载对话框"><a href="#JS弹出下载对话框" class="headerlink" title="JS弹出下载对话框"></a>JS弹出下载对话框</h2><p>假如给我们的不是一个下载地址而是一个blob对象，我们可以通过<code>URL.createObjectURL</code>来给<code>blob</code>对象生成临时URL，并且可以利用HTML5的<code>download</code>属性来指定下载的文件名，好家伙，有了这2个东西我们就可以实现一个“万能”的弹出下载对话框方法了。</p>
+<p>综上所述，我又在<code>fireClickEvent</code>的基础上继续简单封装了一个<code>openDownloadDialog</code>方法，使用如下：</p>
+<ul>
+<li>openDownloadDialog(url, saveName)</li>
+<li>openDownloadDialog(blob, saveName)</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 通用的打开下载对话框方法，没有测试过具体兼容性</span></div><div class="line"><span class="comment"> * @param url 下载地址，也可以是一个blob对象，必选</span></div><div class="line"><span class="comment"> * @param saveName 保存文件名，可选</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">openDownloadDialog</span>(<span class="params">url, saveName</span>)</span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> url == <span class="string">'object'</span> &amp;&amp; url <span class="keyword">instanceof</span> Blob)</div><div class="line">	&#123;</div><div class="line">		url = URL.createObjectURL(url); <span class="comment">// 创建blob地址</span></div><div class="line">	&#125;</div><div class="line">	<span class="keyword">var</span> aLink = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</div><div class="line">	aLink.href = url;</div><div class="line">	aLink.download = saveName || <span class="string">''</span>; <span class="comment">// HTML5新增的属性，指定保存文件名，可以不要后缀，注意，file:///模式下不会生效</span></div><div class="line">	<span class="keyword">var</span> event;</div><div class="line">	<span class="keyword">if</span>(<span class="built_in">window</span>.MouseEvent) event = <span class="keyword">new</span> MouseEvent(<span class="string">'click'</span>);</div><div class="line">	<span class="keyword">else</span></div><div class="line">	&#123;</div><div class="line">		event = <span class="built_in">document</span>.createEvent(<span class="string">'MouseEvents'</span>);</div><div class="line">		event.initMouseEvent(<span class="string">'click'</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="built_in">window</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="number">0</span>, <span class="literal">null</span>);</div><div class="line">	&#125;</div><div class="line">	aLink.dispatchEvent(event);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="JS实现常见文件类型的下载"><a href="#JS实现常见文件类型的下载" class="headerlink" title="JS实现常见文件类型的下载"></a>JS实现常见文件类型的下载</h1><h2 id="JS生成CSV文件并下载"><a href="#JS生成CSV文件并下载" class="headerlink" title="JS生成CSV文件并下载"></a>JS生成CSV文件并下载</h2><p>csv是一种逗号分隔的表格文件格式，可以很好的被Excel支持，由于其文件格式简单，所以经常用在简单的表格上面。最重要的是它是一种纯文本格式，可以很轻松地用JS来生成而不借助第三方库。</p>
+<h3 id="CSV格式示例"><a href="#CSV格式示例" class="headerlink" title="CSV格式示例"></a>CSV格式示例</h3><p>如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">姓名,期中成绩,期末成绩</div><div class="line">张三,58,95</div><div class="line">李四,98,74</div><div class="line">王二,47,38</div><div class="line">刘能,15,100</div><div class="line">黄五,87,68</div></pre></td></tr></table></figure>
+<p>excel打开效果如下：</p>
+<p><img src="http://image.liuxianan.com/201704/20170410_202545_243_4578.png" alt=""></p>
+<h3 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h3><p>首先想到的是使用<code>data:text/txt;</code>来实现，先看一下下载纯文本：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">download</span>=<span class="string">"测试.txt"</span> <span class="attr">href</span>=<span class="string">"data:text/txt;charset=utf-8,测试下载纯文本"</span>&gt;</span>下载<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>以上代码没毛病，然后再换成csv。换csv的最大问题就是如何处理换行，很简单，用<code>encodeURIComponent</code>编码一下就可以了：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"test()"</span>&gt;</span>下载CSV<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span></span></div><div class="line"><span class="undefined">&#123;</span></div><div class="line"><span class="javascript">	<span class="keyword">var</span> csv = <span class="string">'姓名,期中成绩,期末成绩\n张三,58,95\n李四,98,74'</span>;</span></div><div class="line"><span class="javascript">	<span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span></div><div class="line"><span class="javascript">	a.href = <span class="string">'data:text/txt;charset=utf-8,'</span>+<span class="built_in">encodeURIComponent</span>(csv);</span></div><div class="line"><span class="javascript">	a.download = <span class="string">'测试.csv'</span>;</span></div><div class="line"><span class="javascript">	a.click(); <span class="comment">// 这里偷个懒，直接用click模拟</span></span></div><div class="line"><span class="undefined">&#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="解决CSV乱码问题"><a href="#解决CSV乱码问题" class="headerlink" title="解决CSV乱码问题"></a>解决CSV乱码问题</h3><p>虽然我们用的是UTF-8编码，下载后你会发现，用文本编辑器打开没问题，但是用Excel打开乱码：</p>
+<p>别急，原因就是</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2016/12/21/css-scrollbar/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4673,7 +4847,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
