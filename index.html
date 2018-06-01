@@ -219,6 +219,210 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/06/01/火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/01/火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T14:52:20+08:00">
+                2018-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>title:火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）<br>date:2017-08-22 11:55:14</p>
+<h2 id="tags-other"><a href="#tags-other" class="headerlink" title="tags:other"></a>tags:other</h2><p>一、JS版本源码<br>/**</p>
+<ul>
+<li>Created by Wandergis on 2015/7/8.</li>
+<li>提供了百度坐标（BD09）、国测局坐标（火星坐标，GCJ02）、和WGS84坐标系之间的转换<br>*/</li>
+</ul>
+<p>//定义一些常量<br>var x_PI = 3.14159265358979324 * 3000.0 / 180.0;<br>var PI = 3.1415926535897932384626;<br>var a = 6378245.0;<br>var ee = 0.00669342162296594323;</p>
+<p>/**</p>
+<ul>
+<li>百度坐标系 (BD-09) 与 火星坐标系 (GCJ-02)的转换</li>
+<li>即 百度 转 谷歌、高德</li>
+<li>@param bd_lon</li>
+<li>@param bd_lat</li>
+<li>@returns {<em>[]}
+</em>/<br>function bd09togcj02(bd_lon, bd_lat) {<br> var x_pi = 3.14159265358979324 <em> 3000.0 / 180.0;<br> var x = bd_lon - 0.0065;<br> var y = bd_lat - 0.006;<br> var z = Math.sqrt(x </em> x + y <em> y) - 0.00002 </em> Math.sin(y <em> x_pi);<br> var theta = Math.atan2(y, x) - 0.000003 </em> Math.cos(x <em> x_pi);<br> var gg_lng = z </em> Math.cos(theta);<br> var gg_lat = z * Math.sin(theta);<br> return [gg_lng, gg_lat]<br>}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>火星坐标系 (GCJ-02) 与百度坐标系 (BD-09) 的转换</li>
+<li>即谷歌、高德 转 百度</li>
+<li>@param lng</li>
+<li>@param lat</li>
+<li>@returns {<em>[]}
+</em>/<br>function gcj02tobd09(lng, lat) {<br> var z = Math.sqrt(lng <em> lng + lat </em> lat) + 0.00002 <em> Math.sin(lat </em> x_PI);<br> var theta = Math.atan2(lat, lng) + 0.000003 <em> Math.cos(lng </em> x_PI);<br> var bd_lng = z <em> Math.cos(theta) + 0.0065;<br> var bd_lat = z </em> Math.sin(theta) + 0.006;<br> return [bd_lng, bd_lat]<br>}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>WGS84转GCj02</li>
+<li>@param lng</li>
+<li>@param lat</li>
+<li>@returns {<em>[]}
+</em>/<br>function wgs84togcj02(lng, lat) {<br> if (out_of_china(lng, lat)) {<pre><code>return [lng, lat]
+</code></pre> }<br> else {<pre><code>var dlat = transformlat(lng - 105.0, lat - 35.0);
+var dlng = transformlng(lng - 105.0, lat - 35.0);
+var radlat = lat / 180.0 * PI;
+var magic = Math.sin(radlat);
+magic = 1 - ee * magic * magic;
+var sqrtmagic = Math.sqrt(magic);
+dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+var mglat = lat + dlat;
+var mglng = lng + dlng;
+return [mglng, mglat]
+</code></pre> }<br>}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>GCJ02 转换为 WGS84</li>
+<li>@param lng</li>
+<li>@param lat</li>
+<li>@returns {<em>[]}
+</em>/<br>function gcj02towgs84(lng, lat) {<br> if (out_of_china(lng, lat)) {<pre><code>return [lng, lat]
+</code></pre> }<br> else {<pre><code>var dlat = transformlat(lng - 105.0, lat - 35.0);
+var dlng = transformlng(lng - 105.0, lat - 35.0);
+var radlat = lat / 180.0 * PI;
+var magic = Math.sin(radlat);
+magic = 1 - ee * magic * magic;
+var sqrtmagic = Math.sqrt(magic);
+dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+mglat = lat + dlat;
+mglng = lng + dlng;
+return [lng * 2 - mglng, lat * 2 - mglat]
+</code></pre> }<br>}</li>
+</ul>
+<p>function transformlat(lng, lat) {<br>    var ret = -100.0 + 2.0 <em> lng + 3.0 </em> lat + 0.2 <em> lat </em> lat + 0.1 <em> lng </em> lat + 0.2 <em> Math.sqrt(Math.abs(lng));<br>    ret += (20.0 </em> Math.sin(6.0 <em> lng </em> PI) + 20.0 <em> Math.sin(2.0 </em> lng <em> PI)) </em> 2.0 / 3.0;<br>    ret += (20.0 <em> Math.sin(lat </em> PI) + 40.0 <em> Math.sin(lat / 3.0 </em> PI)) <em> 2.0 / 3.0;<br>    ret += (160.0 </em> Math.sin(lat / 12.0 <em> PI) + 320 </em> Math.sin(lat <em> PI / 30.0)) </em> 2.0 / 3.0;<br>    return ret<br>}</p>
+<p>function transformlng(lng, lat) {<br>    var ret = 300.0 + lng + 2.0 <em> lat + 0.1 </em> lng <em> lng + 0.1 </em> lng <em> lat + 0.1 </em> Math.sqrt(Math.abs(lng));<br>    ret += (20.0 <em> Math.sin(6.0 </em> lng <em> PI) + 20.0 </em> Math.sin(2.0 <em> lng </em> PI)) <em> 2.0 / 3.0;<br>    ret += (20.0 </em> Math.sin(lng <em> PI) + 40.0 </em> Math.sin(lng / 3.0 <em> PI)) </em> 2.0 / 3.0;<br>    ret += (150.0 <em> Math.sin(lng / 12.0 </em> PI) + 300.0 <em> Math.sin(lng / 30.0 </em> PI)) * 2.0 / 3.0;<br>    return ret<br>}</p>
+<p>/**</p>
+<ul>
+<li>判断是否在国内，不在国内则不做偏移</li>
+<li>@param lng</li>
+<li>@param lat</li>
+<li>@returns {boolean}<br>*/<br>function out_of_china(lng, lat) {<br> return (lng &lt; 72.004 || lng &gt; 137.8347) || ((lat &lt; 0.8293 || lat &gt; 55.8271) || false);<br>}<br>二、python版本源码<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1>import json<br>import requests<br>import math</li>
+</ul>
+<p>key = ‘your key here’  # 这里填写你的百度开放平台的key<br>x_pi = 3.14159265358979324 * 3000.0 / 180.0<br>pi = 3.1415926535897932384626  # π<br>a = 6378245.0  # 长半轴<br>ee = 0.00669342162296594323  # 扁率</p>
+<p>def geocode(address):<br>    “””<br>    利用百度geocoding服务解析地址获取位置坐标<br>    :param address:需要解析的地址<br>    :return:<br>    “””<br>    geocoding = {‘s’: ‘rsv3’,<br>                 ‘key’: key,<br>                 ‘city’: ‘全国’,<br>                 ‘address’: address}<br>    res = requests.get(<br>        “<a href="http://restapi.amap.com/v3/geocode/geo" target="_blank" rel="external">http://restapi.amap.com/v3/geocode/geo</a>“, params=geocoding)<br>    if res.status_code == 200:<br>        json = res.json()<br>        status = json.get(‘status’)<br>        count = json.get(‘count’)<br>        if status == ‘1’ and int(count) &gt;= 1:<br>            geocodes = json.get(‘geocodes’)[0]<br>            lng = float(geocodes.get(‘location’).split(‘,’)[0])<br>            lat = float(geocodes.get(‘location’).split(‘,’)[1])<br>            return [lng, lat]<br>        else:<br>            return None<br>    else:<br>        return None</p>
+<p>def gcj02tobd09(lng, lat):<br>    “””<br>    火星坐标系(GCJ-02)转百度坐标系(BD-09)<br>    谷歌、高德——&gt;百度<br>    :param lng:火星坐标经度<br>    :param lat:火星坐标纬度<br>    :return:<br>    “””<br>    z = math.sqrt(lng <em> lng + lat </em> lat) + 0.00002 <em> math.sin(lat </em> x_pi)<br>    theta = math.atan2(lat, lng) + 0.000003 <em> math.cos(lng </em> x_pi)<br>    bd_lng = z <em> math.cos(theta) + 0.0065<br>    bd_lat = z </em> math.sin(theta) + 0.006<br>    return [bd_lng, bd_lat]</p>
+<p>def bd09togcj02(bd_lon, bd_lat):<br>    “””<br>    百度坐标系(BD-09)转火星坐标系(GCJ-02)<br>    百度——&gt;谷歌、高德<br>    :param bd_lat:百度坐标纬度<br>    :param bd_lon:百度坐标经度<br>    :return:转换后的坐标列表形式<br>    “””<br>    x = bd_lon - 0.0065<br>    y = bd_lat - 0.006<br>    z = math.sqrt(x <em> x + y </em> y) - 0.00002 <em> math.sin(y </em> x_pi)<br>    theta = math.atan2(y, x) - 0.000003 <em> math.cos(x </em> x_pi)<br>    gg_lng = z <em> math.cos(theta)<br>    gg_lat = z </em> math.sin(theta)<br>    return [gg_lng, gg_lat]</p>
+<p>def wgs84togcj02(lng, lat):<br>    “””<br>    WGS84转GCJ02(火星坐标系)<br>    :param lng:WGS84坐标系的经度<br>    :param lat:WGS84坐标系的纬度<br>    :return:<br>    “””<br>    if out_of_china(lng, lat):  # 判断是否在国内<br>        return lng, lat<br>    dlat = transformlat(lng - 105.0, lat - 35.0)<br>    dlng = transformlng(lng - 105.0, lat - 35.0)<br>    radlat = lat / 180.0 <em> pi<br>    magic = math.sin(radlat)<br>    magic = 1 - ee </em> magic <em> magic<br>    sqrtmagic = math.sqrt(magic)<br>    dlat = (dlat </em> 180.0) / ((a <em> (1 - ee)) / (magic </em> sqrtmagic) <em> pi)<br>    dlng = (dlng </em> 180.0) / (a / sqrtmagic <em> math.cos(radlat) </em> pi)<br>    mglat = lat + dlat<br>    mglng = lng + dlng<br>    return [mglng, mglat]</p>
+<p>def gcj02towgs84(lng, lat):<br>    “””<br>    GCJ02(火星坐标系)转GPS84<br>    :param lng:火星坐标系的经度<br>    :param lat:火星坐标系纬度<br>    :return:<br>    “””<br>    if out_of_china(lng, lat):<br>        return lng, lat<br>    dlat = transformlat(lng - 105.0, lat - 35.0)<br>    dlng = transformlng(lng - 105.0, lat - 35.0)<br>    radlat = lat / 180.0 <em> pi<br>    magic = math.sin(radlat)<br>    magic = 1 - ee </em> magic <em> magic<br>    sqrtmagic = math.sqrt(magic)<br>    dlat = (dlat </em> 180.0) / ((a <em> (1 - ee)) / (magic </em> sqrtmagic) <em> pi)<br>    dlng = (dlng </em> 180.0) / (a / sqrtmagic <em> math.cos(radlat) </em> pi)<br>    mglat = lat + dlat<br>    mglng = lng + dlng<br>    return [lng <em> 2 - mglng, lat </em> 2 - mglat]</p>
+<p>def transformlat(lng, lat):<br>    ret = -100.0 + 2.0 <em> lng + 3.0 </em> lat + 0.2 <em> lat </em> lat + \<br>        0.1 <em> lng </em> lat + 0.2 <em> math.sqrt(math.fabs(lng))<br>    ret += (20.0 </em> math.sin(6.0 <em> lng </em> pi) + 20.0 <em><br>            math.sin(2.0 </em> lng <em> pi)) </em> 2.0 / 3.0<br>    ret += (20.0 <em> math.sin(lat </em> pi) + 40.0 <em><br>            math.sin(lat / 3.0 </em> pi)) <em> 2.0 / 3.0<br>    ret += (160.0 </em> math.sin(lat / 12.0 <em> pi) + 320 </em><br>            math.sin(lat <em> pi / 30.0)) </em> 2.0 / 3.0<br>    return ret</p>
+<p>def transformlng(lng, lat):<br>    ret = 300.0 + lng + 2.0 <em> lat + 0.1 </em> lng <em> lng + \<br>        0.1 </em> lng <em> lat + 0.1 </em> math.sqrt(math.fabs(lng))<br>    ret += (20.0 <em> math.sin(6.0 </em> lng <em> pi) + 20.0 </em><br>            math.sin(2.0 <em> lng </em> pi)) <em> 2.0 / 3.0<br>    ret += (20.0 </em> math.sin(lng <em> pi) + 40.0 </em><br>            math.sin(lng / 3.0 <em> pi)) </em> 2.0 / 3.0<br>    ret += (150.0 <em> math.sin(lng / 12.0 </em> pi) + 300.0 <em><br>            math.sin(lng / 30.0 </em> pi)) * 2.0 / 3.0<br>    return ret</p>
+<p>def out_of_china(lng, lat):<br>    “””<br>    判断是否在国内，不在国内不做偏移<br>    :param lng:<br>    :param lat:<br>    :return:<br>    “””<br>    if lng &lt; 72.004 or lng &gt; 137.8347:<br>        return True<br>    if lat &lt; 0.8293 or lat &gt; 55.8271:<br>        return True<br>    return False</p>
+<p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    lng = 128.543<br>    lat = 37.065<br>    result1 = gcj02tobd09(lng, lat)<br>    result2 = bd09togcj02(lng, lat)<br>    result3 = wgs84togcj02(lng, lat)<br>    result4 = gcj02towgs84(lng, lat)<br>    result5 = geocode(‘北京市朝阳区朝阳公园’)<br>    print result1, result2, result3, result4, result5</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/29/java学习资源整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -346,6 +550,148 @@
 <p>21.<a href="https://blog.csdn.net/u011955252/article/details/78927175" target="_blank" rel="external">maven－assembly-plugin 打包的配置</a></p>
 <p>22.<a href="https://blog.csdn.net/u012260707/article/details/51887626" target="_blank" rel="external">web项目读取classpath下面文件心得总结</a></p>
 <p>……………………………….</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/29/php学习资源整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/29/php学习资源整理/" itemprop="url">php学习资源整理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T15:54:12+08:00">
+                2018-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/php/" itemprop="url" rel="index">
+                    <span itemprop="name">php</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1<a href="https://doc.xuwenliang.com/docs/laravel/1270" target="_blank" rel="external">laravel生态资源相关</a></p>
 
           
         
@@ -726,160 +1072,6 @@ ClientGlobal.initByTrackers(trackerServers);
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/05/java-web开发遇到问题总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/05/java-web开发遇到问题总结/" itemprop="url">java-web开发遇到问题总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T15:54:12+08:00">
-                2018-03-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>1.报错 <code>There is no getter for property named &#39;XXX&#39; in &#39;class java.lang.String&#39;</code></p>
-<p> <a href="http://blog.csdn.net/woshixuye/article/details/8820387" target="_blank" rel="external">问题解决参考</a></p>
-</li>
-<li><p>2.<a href="https://www.cnblogs.com/kongbailin/p/7668631.html" target="_blank" rel="external">tomcat部署项目-静态网页项目</a></p>
-</li>
-<li><p>3.<a href="https://www.cnblogs.com/ysocean/p/6893446.html" target="_blank" rel="external">tomcat部署项目的三种方式</a></p>
-</li>
-<li><p>4.<a href="https://blog.csdn.net/u010837486/article/details/43458847" target="_blank" rel="external">有关springmvc文件上传，出现400 的错误问题</a></p>
-</li>
-<li><p>5.<a href=""></a>   </p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/05/faceDetect项目开发资源整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1050,6 +1242,160 @@ ClientGlobal.initByTrackers(trackerServers);
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/05/java-web开发遇到问题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/05/java-web开发遇到问题总结/" itemprop="url">java-web开发遇到问题总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T15:54:12+08:00">
+                2018-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>1.报错 <code>There is no getter for property named &#39;XXX&#39; in &#39;class java.lang.String&#39;</code></p>
+<p> <a href="http://blog.csdn.net/woshixuye/article/details/8820387" target="_blank" rel="external">问题解决参考</a></p>
+</li>
+<li><p>2.<a href="https://www.cnblogs.com/kongbailin/p/7668631.html" target="_blank" rel="external">tomcat部署项目-静态网页项目</a></p>
+</li>
+<li><p>3.<a href="https://www.cnblogs.com/ysocean/p/6893446.html" target="_blank" rel="external">tomcat部署项目的三种方式</a></p>
+</li>
+<li><p>4.<a href="https://blog.csdn.net/u010837486/article/details/43458847" target="_blank" rel="external">有关springmvc文件上传，出现400 的错误问题</a></p>
+</li>
+<li><p>5.<a href=""></a>   </p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/01/10/java文件上传知识点总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1156,6 +1502,148 @@ ClientGlobal.initByTrackers(trackerServers);
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/12/01/开发遇到的浏览器兼容性问题整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/01/开发遇到的浏览器兼容性问题整理/" itemprop="url">开发遇到的浏览器兼容问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T17:37:12+08:00">
+                2017-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.<a href="https://segmentfault.com/a/1190000014134234" target="_blank" rel="external">阻止微信浏览器下拉滑动效果（ios11.3 橡皮筋效果</a></p>
+
+          
         
       
     </div>
@@ -1363,148 +1851,6 @@ ClientGlobal.initByTrackers(trackerServers);
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/12/01/开发遇到的浏览器兼容性问题整理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/01/开发遇到的浏览器兼容性问题整理/" itemprop="url">开发遇到的浏览器兼容问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T17:37:12+08:00">
-                2017-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1.<a href="https://segmentfault.com/a/1190000014134234" target="_blank" rel="external">阻止微信浏览器下拉滑动效果（ios11.3 橡皮筋效果</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/11/24/样式分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1611,269 +1957,6 @@ ClientGlobal.initByTrackers(trackerServers);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/29/js对象的深浅复制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/29/js对象的深浅复制/" itemprop="url">js对象的深浅复制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T11:55:14+08:00">
-                2017-09-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h4><ul>
-<li>关于js对象的深浅复制，先来一段代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//对象浅复制</div><div class="line">function shadowCopy(obj)&#123;</div><div class="line">    if(typeof obj !== &apos;object&apos;) return ;</div><div class="line">    var newObj;</div><div class="line">    if(obj.constructor === Array)&#123;</div><div class="line">        newObj = [];</div><div class="line">    &#125; else &#123;</div><div class="line">        newObj = &#123;&#125;;</div><div class="line">        newObj.constructor = obj.constructor;//保留对象的constructor属性</div><div class="line">    &#125;</div><div class="line">    for(var prop in obj)&#123;</div><div class="line">        if(obj.hasOwnProperty(prop))&#123;</div><div class="line">          newObj[prop] = obj[prop];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return newObj;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>上述代码实现了浅复制，其中解决了不能正确实现数组的浅复制和复制操作丢失了对象的constructor属性的问题，那么什么是深浅复制呢？<br>从层次上对象的复制分为浅复制和深复制，浅复制是指只复制一层对象的属性，不会复制对象中的对象的属性，对象的深复制会复制对象中层层嵌套的对象的属性。复制对象时，除了要复制对象的属性外，还要兼顾到是否保留了对象的constructor属性，是否对每一种数据类型（JavaScript常见的数据类型有String,Number,Boolean,Data,RegExp,Array,Funtion,Object）都实现正确的复制。实现浅复制可以用Object.assign函数，👇下面具体讲讲这个函数。</p>
-<p>Object.assign函数<br>函数参数为一个目标对象（该对象作为最终的返回值）源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。拷贝过程中将调用源对象的getter方法，并在target对象上使用setter方法实现目标对象的拷贝。<br>Object.assign(target, …sources)</p>
-<h2 id="使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。"><a href="#使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。" class="headerlink" title="使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。"></a>使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。</h2></blockquote>
-<ul>
-<li>深复制</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">那么深复制可能就需要层层递归，复制对象的所有属性，包括对象属性的属性的属性，有人想出了用JSON的解析实现，如下代码：</div><div class="line"></div><div class="line">function deepCopy(obj)&#123;</div><div class="line">   if(typeof obj !== &quot;object&quot;)&#123; return ;&#125;</div><div class="line">   var str = JSON.stringify(obj);</div><div class="line">   return JSON.parse(str);</div><div class="line">&#125;</div><div class="line">👆上面的方法不适用的条件是</div><div class="line"></div><div class="line">需要考虑把函数，正则等特殊数据类型复制</div><div class="line">当前对象不支持JSON</div><div class="line">JSON复制会忽略掉值为undefined以及函数表达式</div><div class="line">可以看下面的栗子：</div><div class="line">var obj = &#123;</div><div class="line">    a: 1,</div><div class="line">    b: 2,</div><div class="line">    c: undefined,</div><div class="line">    sum: function() &#123; return a + b; &#125;</div><div class="line">&#125;;</div><div class="line">var obj2 = JSON.parse(JSON.stringify(obj));</div><div class="line">console.log(obj2);//输出：Object &#123;a: 1, b: 2&#125;</div><div class="line">这个时候还是要层层递归来不同情况不同分析来考虑的，最终的方案如下：</div><div class="line"></div><div class="line">//对象深复制</div><div class="line">function deepCopy(obj)&#123;</div><div class="line">    var newObj = obj.constructor === Array ? []:&#123;&#125;;</div><div class="line">    newObj.constructor = obj.constructor;</div><div class="line">    if(typeof obj !== &quot;object&quot;)&#123; </div><div class="line">        return ;</div><div class="line">    &#125; else if(window.JSON)&#123;</div><div class="line">        newObj = JSON.parse(JSON.stringify(obj));//若需要考虑特殊的数据类型，如正则，函数等，需把这个else if去掉即可</div><div class="line">    &#125; else &#123;</div><div class="line">        for(var prop in obj)&#123;</div><div class="line">            if(obj[prop].constructor === RegExp ||obj[prop].constructor === Date)&#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125; else if(typeof obj[prop] === &apos;object&apos;)&#123;</div><div class="line">                newObj[prop] = deepCopy(obj[prop]);//递归</div><div class="line">            &#125; else &#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; </div><div class="line">    return newObj;</div><div class="line">&#125;</div><div class="line">第三方库实现的深浅复制（推荐看文档源码，这里就不详讲了）</div><div class="line"></div><div class="line">jQuery.extend</div><div class="line">jQuery.extend()</div><div class="line"></div><div class="line">lodash 中 _.clone() / _.cloneDeep()</div><div class="line">_.clone()</div><div class="line">_.cloneDeep()</div></pre></td></tr></table></figure>
-<ul>
-<li>总结</li>
-</ul>
-<p><code>在我们平时应用过程中，浅复制优先考虑Object.assign函数，深复制优先考虑lodash中的_.cloneDeep()方法，如果是简单的深复制并符合JSON格式可以考虑JSON.parse(JSON.stringify(obj))。</code></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/28/java知识点/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/28/java知识点/" itemprop="url">java知识点收集</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-28T11:55:14+08:00">
-                2017-09-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>maven  </p>
-<p><a href="http://jiaxiaoxuan.top/2017/09/24/maven%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/#more" target="_blank" rel="external">maven详细介绍</a></p>
-</li>
-</ul>
-<p>  <a href="http://jiaxiaoxuan.top/2017/09/24/maven%E9%98%BF%E9%87%8C%E4%BA%91%E8%AE%BE%E7%BD%AE/#more" target="_blank" rel="external">maven阿里云设置</a></p>
-<p>  <a href="http://jiaxiaoxuan.top/2017/09/24/jvm%E8%B0%83%E4%BC%98/" target="_blank" rel="external">jvm调优</a></p>
-<p>  <a href="https://www.cnblogs.com/CEO-H/p/7794306.html" target="_blank" rel="external">linux如何查看端口号被哪个进程占用</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1923,7 +2006,7 @@ ClientGlobal.initByTrackers(trackerServers);
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1934,7 +2017,7 @@ ClientGlobal.initByTrackers(trackerServers);
             
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -1945,7 +2028,7 @@ ClientGlobal.initByTrackers(trackerServers);
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

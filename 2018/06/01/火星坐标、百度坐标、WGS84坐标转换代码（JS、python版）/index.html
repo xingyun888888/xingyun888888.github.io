@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="title:火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）date:2017-08-22 11:55:14 tags:other一、JS版本源码/**  Created by Wandergis on 2015/7/8. 提供了百度坐标（BD09）、国测局坐标（火星坐标，GCJ02）、和WGS84坐标系之间的转换*/  //定义一些常量var x_PI = 3.1415926">
+<meta property="og:type" content="article">
+<meta property="og:title" content="呆萌的smile_微笑">
+<meta property="og:url" content="https://xingyun888888.github.io/2018/06/01/火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）/index.html">
+<meta property="og:site_name" content="呆萌的smile_微笑">
+<meta property="og:description" content="title:火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）date:2017-08-22 11:55:14 tags:other一、JS版本源码/**  Created by Wandergis on 2015/7/8. 提供了百度坐标（BD09）、国测局坐标（火星坐标，GCJ02）、和WGS84坐标系之间的转换*/  //定义一些常量var x_PI = 3.1415926">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-01T06:52:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="呆萌的smile_微笑">
+<meta name="twitter:description" content="title:火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）date:2017-08-22 11:55:14 tags:other一、JS版本源码/**  Created by Wandergis on 2015/7/8. 提供了百度坐标（BD09）、国测局坐标（火星坐标，GCJ02）、和WGS84坐标系之间的转换*/  //定义一些常量var x_PI = 3.1415926">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://xingyun888888.github.io/2018/06/01/火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）/"/>
+
+
+
+
+
+  <title> | 呆萌的smile_微笑</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">呆萌的smile_微笑</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/06/01/火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T14:52:20+08:00">
+                2018-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>title:火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）<br>date:2017-08-22 11:55:14</p>
+<h2 id="tags-other"><a href="#tags-other" class="headerlink" title="tags:other"></a>tags:other</h2><p>一、JS版本源码<br>/**</p>
+<ul>
+<li>Created by Wandergis on 2015/7/8.</li>
+<li>提供了百度坐标（BD09）、国测局坐标（火星坐标，GCJ02）、和WGS84坐标系之间的转换<br>*/</li>
+</ul>
+<p>//定义一些常量<br>var x_PI = 3.14159265358979324 * 3000.0 / 180.0;<br>var PI = 3.1415926535897932384626;<br>var a = 6378245.0;<br>var ee = 0.00669342162296594323;</p>
+<p>/**</p>
+<ul>
+<li>百度坐标系 (BD-09) 与 火星坐标系 (GCJ-02)的转换</li>
+<li>即 百度 转 谷歌、高德</li>
+<li>@param bd_lon</li>
+<li>@param bd_lat</li>
+<li>@returns {<em>[]}
+</em>/<br>function bd09togcj02(bd_lon, bd_lat) {<br> var x_pi = 3.14159265358979324 <em> 3000.0 / 180.0;<br> var x = bd_lon - 0.0065;<br> var y = bd_lat - 0.006;<br> var z = Math.sqrt(x </em> x + y <em> y) - 0.00002 </em> Math.sin(y <em> x_pi);<br> var theta = Math.atan2(y, x) - 0.000003 </em> Math.cos(x <em> x_pi);<br> var gg_lng = z </em> Math.cos(theta);<br> var gg_lat = z * Math.sin(theta);<br> return [gg_lng, gg_lat]<br>}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>火星坐标系 (GCJ-02) 与百度坐标系 (BD-09) 的转换</li>
+<li>即谷歌、高德 转 百度</li>
+<li>@param lng</li>
+<li>@param lat</li>
+<li>@returns {<em>[]}
+</em>/<br>function gcj02tobd09(lng, lat) {<br> var z = Math.sqrt(lng <em> lng + lat </em> lat) + 0.00002 <em> Math.sin(lat </em> x_PI);<br> var theta = Math.atan2(lat, lng) + 0.000003 <em> Math.cos(lng </em> x_PI);<br> var bd_lng = z <em> Math.cos(theta) + 0.0065;<br> var bd_lat = z </em> Math.sin(theta) + 0.006;<br> return [bd_lng, bd_lat]<br>}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>WGS84转GCj02</li>
+<li>@param lng</li>
+<li>@param lat</li>
+<li>@returns {<em>[]}
+</em>/<br>function wgs84togcj02(lng, lat) {<br> if (out_of_china(lng, lat)) {<pre><code>return [lng, lat]
+</code></pre> }<br> else {<pre><code>var dlat = transformlat(lng - 105.0, lat - 35.0);
+var dlng = transformlng(lng - 105.0, lat - 35.0);
+var radlat = lat / 180.0 * PI;
+var magic = Math.sin(radlat);
+magic = 1 - ee * magic * magic;
+var sqrtmagic = Math.sqrt(magic);
+dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+var mglat = lat + dlat;
+var mglng = lng + dlng;
+return [mglng, mglat]
+</code></pre> }<br>}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>GCJ02 转换为 WGS84</li>
+<li>@param lng</li>
+<li>@param lat</li>
+<li>@returns {<em>[]}
+</em>/<br>function gcj02towgs84(lng, lat) {<br> if (out_of_china(lng, lat)) {<pre><code>return [lng, lat]
+</code></pre> }<br> else {<pre><code>var dlat = transformlat(lng - 105.0, lat - 35.0);
+var dlng = transformlng(lng - 105.0, lat - 35.0);
+var radlat = lat / 180.0 * PI;
+var magic = Math.sin(radlat);
+magic = 1 - ee * magic * magic;
+var sqrtmagic = Math.sqrt(magic);
+dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+mglat = lat + dlat;
+mglng = lng + dlng;
+return [lng * 2 - mglng, lat * 2 - mglat]
+</code></pre> }<br>}</li>
+</ul>
+<p>function transformlat(lng, lat) {<br>    var ret = -100.0 + 2.0 <em> lng + 3.0 </em> lat + 0.2 <em> lat </em> lat + 0.1 <em> lng </em> lat + 0.2 <em> Math.sqrt(Math.abs(lng));<br>    ret += (20.0 </em> Math.sin(6.0 <em> lng </em> PI) + 20.0 <em> Math.sin(2.0 </em> lng <em> PI)) </em> 2.0 / 3.0;<br>    ret += (20.0 <em> Math.sin(lat </em> PI) + 40.0 <em> Math.sin(lat / 3.0 </em> PI)) <em> 2.0 / 3.0;<br>    ret += (160.0 </em> Math.sin(lat / 12.0 <em> PI) + 320 </em> Math.sin(lat <em> PI / 30.0)) </em> 2.0 / 3.0;<br>    return ret<br>}</p>
+<p>function transformlng(lng, lat) {<br>    var ret = 300.0 + lng + 2.0 <em> lat + 0.1 </em> lng <em> lng + 0.1 </em> lng <em> lat + 0.1 </em> Math.sqrt(Math.abs(lng));<br>    ret += (20.0 <em> Math.sin(6.0 </em> lng <em> PI) + 20.0 </em> Math.sin(2.0 <em> lng </em> PI)) <em> 2.0 / 3.0;<br>    ret += (20.0 </em> Math.sin(lng <em> PI) + 40.0 </em> Math.sin(lng / 3.0 <em> PI)) </em> 2.0 / 3.0;<br>    ret += (150.0 <em> Math.sin(lng / 12.0 </em> PI) + 300.0 <em> Math.sin(lng / 30.0 </em> PI)) * 2.0 / 3.0;<br>    return ret<br>}</p>
+<p>/**</p>
+<ul>
+<li>判断是否在国内，不在国内则不做偏移</li>
+<li>@param lng</li>
+<li>@param lat</li>
+<li>@returns {boolean}<br>*/<br>function out_of_china(lng, lat) {<br> return (lng &lt; 72.004 || lng &gt; 137.8347) || ((lat &lt; 0.8293 || lat &gt; 55.8271) || false);<br>}<br>二、python版本源码<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1>import json<br>import requests<br>import math</li>
+</ul>
+<p>key = ‘your key here’  # 这里填写你的百度开放平台的key<br>x_pi = 3.14159265358979324 * 3000.0 / 180.0<br>pi = 3.1415926535897932384626  # π<br>a = 6378245.0  # 长半轴<br>ee = 0.00669342162296594323  # 扁率</p>
+<p>def geocode(address):<br>    “””<br>    利用百度geocoding服务解析地址获取位置坐标<br>    :param address:需要解析的地址<br>    :return:<br>    “””<br>    geocoding = {‘s’: ‘rsv3’,<br>                 ‘key’: key,<br>                 ‘city’: ‘全国’,<br>                 ‘address’: address}<br>    res = requests.get(<br>        “<a href="http://restapi.amap.com/v3/geocode/geo" target="_blank" rel="external">http://restapi.amap.com/v3/geocode/geo</a>“, params=geocoding)<br>    if res.status_code == 200:<br>        json = res.json()<br>        status = json.get(‘status’)<br>        count = json.get(‘count’)<br>        if status == ‘1’ and int(count) &gt;= 1:<br>            geocodes = json.get(‘geocodes’)[0]<br>            lng = float(geocodes.get(‘location’).split(‘,’)[0])<br>            lat = float(geocodes.get(‘location’).split(‘,’)[1])<br>            return [lng, lat]<br>        else:<br>            return None<br>    else:<br>        return None</p>
+<p>def gcj02tobd09(lng, lat):<br>    “””<br>    火星坐标系(GCJ-02)转百度坐标系(BD-09)<br>    谷歌、高德——&gt;百度<br>    :param lng:火星坐标经度<br>    :param lat:火星坐标纬度<br>    :return:<br>    “””<br>    z = math.sqrt(lng <em> lng + lat </em> lat) + 0.00002 <em> math.sin(lat </em> x_pi)<br>    theta = math.atan2(lat, lng) + 0.000003 <em> math.cos(lng </em> x_pi)<br>    bd_lng = z <em> math.cos(theta) + 0.0065<br>    bd_lat = z </em> math.sin(theta) + 0.006<br>    return [bd_lng, bd_lat]</p>
+<p>def bd09togcj02(bd_lon, bd_lat):<br>    “””<br>    百度坐标系(BD-09)转火星坐标系(GCJ-02)<br>    百度——&gt;谷歌、高德<br>    :param bd_lat:百度坐标纬度<br>    :param bd_lon:百度坐标经度<br>    :return:转换后的坐标列表形式<br>    “””<br>    x = bd_lon - 0.0065<br>    y = bd_lat - 0.006<br>    z = math.sqrt(x <em> x + y </em> y) - 0.00002 <em> math.sin(y </em> x_pi)<br>    theta = math.atan2(y, x) - 0.000003 <em> math.cos(x </em> x_pi)<br>    gg_lng = z <em> math.cos(theta)<br>    gg_lat = z </em> math.sin(theta)<br>    return [gg_lng, gg_lat]</p>
+<p>def wgs84togcj02(lng, lat):<br>    “””<br>    WGS84转GCJ02(火星坐标系)<br>    :param lng:WGS84坐标系的经度<br>    :param lat:WGS84坐标系的纬度<br>    :return:<br>    “””<br>    if out_of_china(lng, lat):  # 判断是否在国内<br>        return lng, lat<br>    dlat = transformlat(lng - 105.0, lat - 35.0)<br>    dlng = transformlng(lng - 105.0, lat - 35.0)<br>    radlat = lat / 180.0 <em> pi<br>    magic = math.sin(radlat)<br>    magic = 1 - ee </em> magic <em> magic<br>    sqrtmagic = math.sqrt(magic)<br>    dlat = (dlat </em> 180.0) / ((a <em> (1 - ee)) / (magic </em> sqrtmagic) <em> pi)<br>    dlng = (dlng </em> 180.0) / (a / sqrtmagic <em> math.cos(radlat) </em> pi)<br>    mglat = lat + dlat<br>    mglng = lng + dlng<br>    return [mglng, mglat]</p>
+<p>def gcj02towgs84(lng, lat):<br>    “””<br>    GCJ02(火星坐标系)转GPS84<br>    :param lng:火星坐标系的经度<br>    :param lat:火星坐标系纬度<br>    :return:<br>    “””<br>    if out_of_china(lng, lat):<br>        return lng, lat<br>    dlat = transformlat(lng - 105.0, lat - 35.0)<br>    dlng = transformlng(lng - 105.0, lat - 35.0)<br>    radlat = lat / 180.0 <em> pi<br>    magic = math.sin(radlat)<br>    magic = 1 - ee </em> magic <em> magic<br>    sqrtmagic = math.sqrt(magic)<br>    dlat = (dlat </em> 180.0) / ((a <em> (1 - ee)) / (magic </em> sqrtmagic) <em> pi)<br>    dlng = (dlng </em> 180.0) / (a / sqrtmagic <em> math.cos(radlat) </em> pi)<br>    mglat = lat + dlat<br>    mglng = lng + dlng<br>    return [lng <em> 2 - mglng, lat </em> 2 - mglat]</p>
+<p>def transformlat(lng, lat):<br>    ret = -100.0 + 2.0 <em> lng + 3.0 </em> lat + 0.2 <em> lat </em> lat + \<br>        0.1 <em> lng </em> lat + 0.2 <em> math.sqrt(math.fabs(lng))<br>    ret += (20.0 </em> math.sin(6.0 <em> lng </em> pi) + 20.0 <em><br>            math.sin(2.0 </em> lng <em> pi)) </em> 2.0 / 3.0<br>    ret += (20.0 <em> math.sin(lat </em> pi) + 40.0 <em><br>            math.sin(lat / 3.0 </em> pi)) <em> 2.0 / 3.0<br>    ret += (160.0 </em> math.sin(lat / 12.0 <em> pi) + 320 </em><br>            math.sin(lat <em> pi / 30.0)) </em> 2.0 / 3.0<br>    return ret</p>
+<p>def transformlng(lng, lat):<br>    ret = 300.0 + lng + 2.0 <em> lat + 0.1 </em> lng <em> lng + \<br>        0.1 </em> lng <em> lat + 0.1 </em> math.sqrt(math.fabs(lng))<br>    ret += (20.0 <em> math.sin(6.0 </em> lng <em> pi) + 20.0 </em><br>            math.sin(2.0 <em> lng </em> pi)) <em> 2.0 / 3.0<br>    ret += (20.0 </em> math.sin(lng <em> pi) + 40.0 </em><br>            math.sin(lng / 3.0 <em> pi)) </em> 2.0 / 3.0<br>    ret += (150.0 <em> math.sin(lng / 12.0 </em> pi) + 300.0 <em><br>            math.sin(lng / 30.0 </em> pi)) * 2.0 / 3.0<br>    return ret</p>
+<p>def out_of_china(lng, lat):<br>    “””<br>    判断是否在国内，不在国内不做偏移<br>    :param lng:<br>    :param lat:<br>    :return:<br>    “””<br>    if lng &lt; 72.004 or lng &gt; 137.8347:<br>        return True<br>    if lat &lt; 0.8293 or lat &gt; 55.8271:<br>        return True<br>    return False</p>
+<p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    lng = 128.543<br>    lat = 37.065<br>    result1 = gcj02tobd09(lng, lat)<br>    result2 = bd09togcj02(lng, lat)<br>    result3 = wgs84togcj02(lng, lat)<br>    result4 = gcj02towgs84(lng, lat)<br>    result5 = geocode(‘北京市朝阳区朝阳公园’)<br>    print result1, result2, result3, result4, result5</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/29/java学习资源整理/" rel="next" title="java学习资源整理">
+                <i class="fa fa-chevron-left"></i> java学习资源整理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">呆萌的smile_微笑</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags-other"><span class="nav-number">1.</span> <span class="nav-text">tags:other</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#coding-utf-8"><span class="nav-number"></span> <span class="nav-text">-- coding: utf-8 --</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">呆萌的smile_微笑</span>
+
+  
+</div>
+
+<!--
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
