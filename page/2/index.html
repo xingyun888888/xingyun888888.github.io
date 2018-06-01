@@ -293,16 +293,18 @@
             <h4 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h4><ul>
 <li>关于js对象的深浅复制，先来一段代码</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//对象浅复制</div><div class="line">function shadowCopy(obj)&#123;</div><div class="line">    if(typeof obj !== &apos;object&apos;) return ;</div><div class="line">    var newObj;</div><div class="line">    if(obj.constructor === Array)&#123;</div><div class="line">        newObj = [];</div><div class="line">    &#125; else &#123;</div><div class="line">        newObj = &#123;&#125;;</div><div class="line">        newObj.constructor = obj.constructor;//保留对象的constructor属性</div><div class="line">    &#125;</div><div class="line">    for(var prop in obj)&#123;</div><div class="line">        if(obj.hasOwnProperty(prop))&#123;</div><div class="line">          newObj[prop] = obj[prop];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return newObj;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//对象浅复制</span><br><span class="line">function shadowCopy(obj)&#123;</span><br><span class="line">    if(typeof obj !== &apos;object&apos;) return ;</span><br><span class="line">    var newObj;</span><br><span class="line">    if(obj.constructor === Array)&#123;</span><br><span class="line">        newObj = [];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        newObj = &#123;&#125;;</span><br><span class="line">        newObj.constructor = obj.constructor;//保留对象的constructor属性</span><br><span class="line">    &#125;</span><br><span class="line">    for(var prop in obj)&#123;</span><br><span class="line">        if(obj.hasOwnProperty(prop))&#123;</span><br><span class="line">          newObj[prop] = obj[prop];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return newObj;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <blockquote>
 <p>上述代码实现了浅复制，其中解决了不能正确实现数组的浅复制和复制操作丢失了对象的constructor属性的问题，那么什么是深浅复制呢？<br>从层次上对象的复制分为浅复制和深复制，浅复制是指只复制一层对象的属性，不会复制对象中的对象的属性，对象的深复制会复制对象中层层嵌套的对象的属性。复制对象时，除了要复制对象的属性外，还要兼顾到是否保留了对象的constructor属性，是否对每一种数据类型（JavaScript常见的数据类型有String,Number,Boolean,Data,RegExp,Array,Funtion,Object）都实现正确的复制。实现浅复制可以用Object.assign函数，👇下面具体讲讲这个函数。</p>
+</blockquote>
+<blockquote>
 <p>Object.assign函数<br>函数参数为一个目标对象（该对象作为最终的返回值）源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。拷贝过程中将调用源对象的getter方法，并在target对象上使用setter方法实现目标对象的拷贝。<br>Object.assign(target, …sources)</p>
-<h2 id="使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。"><a href="#使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。" class="headerlink" title="使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。"></a>使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。</h2></blockquote>
-<ul>
+</blockquote>
+<h2 id="使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。"><a href="#使用该函数需要注意三点：1-可被枚举的属性，2-自有属性，3-string或者Symbol类型是可以被直接分配的。" class="headerlink" title="使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。"></a>使用该函数需要注意三点：1. 可被枚举的属性，2. 自有属性，3. string或者Symbol类型是可以被直接分配的。</h2><ul>
 <li>深复制</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">那么深复制可能就需要层层递归，复制对象的所有属性，包括对象属性的属性的属性，有人想出了用JSON的解析实现，如下代码：</div><div class="line"></div><div class="line">function deepCopy(obj)&#123;</div><div class="line">   if(typeof obj !== &quot;object&quot;)&#123; return ;&#125;</div><div class="line">   var str = JSON.stringify(obj);</div><div class="line">   return JSON.parse(str);</div><div class="line">&#125;</div><div class="line">👆上面的方法不适用的条件是</div><div class="line"></div><div class="line">需要考虑把函数，正则等特殊数据类型复制</div><div class="line">当前对象不支持JSON</div><div class="line">JSON复制会忽略掉值为undefined以及函数表达式</div><div class="line">可以看下面的栗子：</div><div class="line">var obj = &#123;</div><div class="line">    a: 1,</div><div class="line">    b: 2,</div><div class="line">    c: undefined,</div><div class="line">    sum: function() &#123; return a + b; &#125;</div><div class="line">&#125;;</div><div class="line">var obj2 = JSON.parse(JSON.stringify(obj));</div><div class="line">console.log(obj2);//输出：Object &#123;a: 1, b: 2&#125;</div><div class="line">这个时候还是要层层递归来不同情况不同分析来考虑的，最终的方案如下：</div><div class="line"></div><div class="line">//对象深复制</div><div class="line">function deepCopy(obj)&#123;</div><div class="line">    var newObj = obj.constructor === Array ? []:&#123;&#125;;</div><div class="line">    newObj.constructor = obj.constructor;</div><div class="line">    if(typeof obj !== &quot;object&quot;)&#123; </div><div class="line">        return ;</div><div class="line">    &#125; else if(window.JSON)&#123;</div><div class="line">        newObj = JSON.parse(JSON.stringify(obj));//若需要考虑特殊的数据类型，如正则，函数等，需把这个else if去掉即可</div><div class="line">    &#125; else &#123;</div><div class="line">        for(var prop in obj)&#123;</div><div class="line">            if(obj[prop].constructor === RegExp ||obj[prop].constructor === Date)&#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125; else if(typeof obj[prop] === &apos;object&apos;)&#123;</div><div class="line">                newObj[prop] = deepCopy(obj[prop]);//递归</div><div class="line">            &#125; else &#123;</div><div class="line">                newObj[prop] = obj[prop];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; </div><div class="line">    return newObj;</div><div class="line">&#125;</div><div class="line">第三方库实现的深浅复制（推荐看文档源码，这里就不详讲了）</div><div class="line"></div><div class="line">jQuery.extend</div><div class="line">jQuery.extend()</div><div class="line"></div><div class="line">lodash 中 _.clone() / _.cloneDeep()</div><div class="line">_.clone()</div><div class="line">_.cloneDeep()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">那么深复制可能就需要层层递归，复制对象的所有属性，包括对象属性的属性的属性，有人想出了用JSON的解析实现，如下代码：</span><br><span class="line"></span><br><span class="line">function deepCopy(obj)&#123;</span><br><span class="line">   if(typeof obj !== &quot;object&quot;)&#123; return ;&#125;</span><br><span class="line">   var str = JSON.stringify(obj);</span><br><span class="line">   return JSON.parse(str);</span><br><span class="line">&#125;</span><br><span class="line">👆上面的方法不适用的条件是</span><br><span class="line"></span><br><span class="line">需要考虑把函数，正则等特殊数据类型复制</span><br><span class="line">当前对象不支持JSON</span><br><span class="line">JSON复制会忽略掉值为undefined以及函数表达式</span><br><span class="line">可以看下面的栗子：</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    b: 2,</span><br><span class="line">    c: undefined,</span><br><span class="line">    sum: function() &#123; return a + b; &#125;</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = JSON.parse(JSON.stringify(obj));</span><br><span class="line">console.log(obj2);//输出：Object &#123;a: 1, b: 2&#125;</span><br><span class="line">这个时候还是要层层递归来不同情况不同分析来考虑的，最终的方案如下：</span><br><span class="line"></span><br><span class="line">//对象深复制</span><br><span class="line">function deepCopy(obj)&#123;</span><br><span class="line">    var newObj = obj.constructor === Array ? []:&#123;&#125;;</span><br><span class="line">    newObj.constructor = obj.constructor;</span><br><span class="line">    if(typeof obj !== &quot;object&quot;)&#123; </span><br><span class="line">        return ;</span><br><span class="line">    &#125; else if(window.JSON)&#123;</span><br><span class="line">        newObj = JSON.parse(JSON.stringify(obj));//若需要考虑特殊的数据类型，如正则，函数等，需把这个else if去掉即可</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        for(var prop in obj)&#123;</span><br><span class="line">            if(obj[prop].constructor === RegExp ||obj[prop].constructor === Date)&#123;</span><br><span class="line">                newObj[prop] = obj[prop];</span><br><span class="line">            &#125; else if(typeof obj[prop] === &apos;object&apos;)&#123;</span><br><span class="line">                newObj[prop] = deepCopy(obj[prop]);//递归</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                newObj[prop] = obj[prop];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    return newObj;</span><br><span class="line">&#125;</span><br><span class="line">第三方库实现的深浅复制（推荐看文档源码，这里就不详讲了）</span><br><span class="line"></span><br><span class="line">jQuery.extend</span><br><span class="line">jQuery.extend()</span><br><span class="line"></span><br><span class="line">lodash 中 _.clone() / _.cloneDeep()</span><br><span class="line">_.clone()</span><br><span class="line">_.cloneDeep()</span><br></pre></td></tr></table></figure>
 <ul>
 <li>总结</li>
 </ul>
@@ -428,12 +430,146 @@
           
             <ul>
 <li><p>maven  </p>
-<p><a href="http://jiaxiaoxuan.top/2017/09/24/maven%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/#more" target="_blank" rel="external">maven详细介绍</a></p>
+<p><a href="http://jiaxiaoxuan.top/2017/09/24/maven%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/#more" target="_blank" rel="noopener">maven详细介绍</a></p>
 </li>
 </ul>
-<p>  <a href="http://jiaxiaoxuan.top/2017/09/24/maven%E9%98%BF%E9%87%8C%E4%BA%91%E8%AE%BE%E7%BD%AE/#more" target="_blank" rel="external">maven阿里云设置</a></p>
-<p>  <a href="http://jiaxiaoxuan.top/2017/09/24/jvm%E8%B0%83%E4%BC%98/" target="_blank" rel="external">jvm调优</a></p>
-<p>  <a href="https://www.cnblogs.com/CEO-H/p/7794306.html" target="_blank" rel="external">linux如何查看端口号被哪个进程占用</a></p>
+<p>  <a href="http://jiaxiaoxuan.top/2017/09/24/maven%E9%98%BF%E9%87%8C%E4%BA%91%E8%AE%BE%E7%BD%AE/#more" target="_blank" rel="noopener">maven阿里云设置</a></p>
+<p>  <a href="http://jiaxiaoxuan.top/2017/09/24/jvm%E8%B0%83%E4%BC%98/" target="_blank" rel="noopener">jvm调优</a></p>
+<p>  <a href="https://www.cnblogs.com/CEO-H/p/7794306.html" target="_blank" rel="noopener">linux如何查看端口号被哪个进程占用</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/26/前端上传图片预览/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/26/前端上传图片预览/" itemprop="url">前端上传图片预览</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T11:55:14+08:00">
+                2017-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文将介绍两种方法来实现前端上传图片预览。</p>
+<ul>
+<li>方法1：FileReader</li>
+</ul>
+<blockquote>
+<p>FileReader对象允许Web应用程序异步读取存储在计算机上的文件（或原始数据缓冲区）的内容，使用File或Blob对象指定要读取的文件。其中File对象可以是来自用户在一个<input>元素上选择文件返回的FileList对象，也可以来自拖放操作生成的DataTransfer对象，还可以是来自一个HTMLCanvasElement上执行mozGetAsFile()方法后返回结果。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">demo示例：</span><br><span class="line"></span><br><span class="line">var oFileReader = new FileReader(); // 创建一个FileReader对象</span><br><span class="line">var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; // 验证图片的正则</span><br><span class="line">var oPreview = document.getElementsByClassName(&apos;img-thumbnail&apos;)[0]; // 预览图</span><br><span class="line">var oUpload = document.getElementsByClassName(&apos;file-upload&apos;)[0]; // 图片上传</span><br><span class="line"></span><br><span class="line">oFileReader.onload = function (event) &#123;</span><br><span class="line">    oPreview.src = event.target.result; // 替换预览图的src</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">oUpload.onchange = function loadImgFile() &#123;</span><br><span class="line">    var oFile = oUpload.files[0];</span><br><span class="line"></span><br><span class="line">    if (!rFilter.test(oFile.type)) &#123;</span><br><span class="line">        alert(&apos;必须上传图片文件！&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (window.FileReader) &#123;</span><br><span class="line">        /*</span><br><span class="line">        读取指定的Blob对象或File对象中的内容。</span><br><span class="line">        当读取操作完成时，会自动尝试去调用onloadend事件。</span><br><span class="line">        同时，result属性将包含一个data:URL表示读取的文件的内容。</span><br><span class="line">         */</span><br><span class="line">        oFileReader.readAsDataURL(oFile);</span><br><span class="line">    &#125; else if (navigator.appName === &apos;Microsoft Internet Explorer&apos;) &#123; // IE浏览器</span><br><span class="line">        // IE10以下版本不支持FileReader()构造函数，利用滤镜兼容旧版本的IE</span><br><span class="line">        oPreview.style.filter = &apos;progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)&apos;;</span><br><span class="line">        oPreview.filters.item(&quot;DXImageTransform.Microsoft.AlphaImageLoader&quot;).src = oUpload.value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方法2：URL.createObjectURL(blob)</li>
+</ul>
+<blockquote>
+<p>URL.createObjectURL(blob)静态方法会创建一个DOMString，其中包含一个表示参数中给出的对象的URL。这个URL的生命周期和创建它的窗口中的document绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">demo示例：</span><br><span class="line">var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;</span><br><span class="line">var oPreview = document.getElementsByClassName(&apos;img-thumbnail&apos;)[0]; // 预览图</span><br><span class="line">var oUpload = document.getElementsByClassName(&apos;file-upload&apos;)[0]; // 图片上传</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取dataURL</span><br><span class="line"> */</span><br><span class="line">function createObjectURL(blob) &#123;</span><br><span class="line">    return window[window.webkitURL ? &apos;webkitURL&apos; : &apos;URL&apos;][&apos;createObjectURL&apos;](blob);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">oUpload.onchange = function () &#123;</span><br><span class="line">    var oFile = oUpload.files[0];</span><br><span class="line"></span><br><span class="line">    if (!rFilter.test(oFile.type)) &#123;</span><br><span class="line">        alert(&apos;必须上传图片文件！&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var imgDataURL;</span><br><span class="line">    if (navigator.appName === &apos;&apos;) &#123;</span><br><span class="line">        // IE10以下版本不支持FileReader()构造函数，利用滤镜兼容旧版本的IE</span><br><span class="line">        imgDataURL = oUpload.value;</span><br><span class="line"></span><br><span class="line">        oPreview.style.filter = &apos;progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)&apos;;</span><br><span class="line">        oPreview.filters.item(&quot;DXImageTransform.Microsoft.AlphaImageLoader&quot;).src = imgDataURL;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        imgDataURL = createObjectURL(oFile);</span><br><span class="line">        oPreview.src = imgDataURL;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -601,140 +737,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/26/前端上传图片预览/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/26/前端上传图片预览/" itemprop="url">前端上传图片预览</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T11:55:14+08:00">
-                2017-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>此文将介绍两种方法来实现前端上传图片预览。</p>
-<ul>
-<li>方法1：FileReader</li>
-</ul>
-<blockquote>
-<p>FileReader对象允许Web应用程序异步读取存储在计算机上的文件（或原始数据缓冲区）的内容，使用File或Blob对象指定要读取的文件。其中File对象可以是来自用户在一个<input>元素上选择文件返回的FileList对象，也可以来自拖放操作生成的DataTransfer对象，还可以是来自一个HTMLCanvasElement上执行mozGetAsFile()方法后返回结果。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">demo示例：</div><div class="line"></div><div class="line">var oFileReader = new FileReader(); // 创建一个FileReader对象</div><div class="line">var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; // 验证图片的正则</div><div class="line">var oPreview = document.getElementsByClassName(&apos;img-thumbnail&apos;)[0]; // 预览图</div><div class="line">var oUpload = document.getElementsByClassName(&apos;file-upload&apos;)[0]; // 图片上传</div><div class="line"></div><div class="line">oFileReader.onload = function (event) &#123;</div><div class="line">    oPreview.src = event.target.result; // 替换预览图的src</div><div class="line">&#125;</div><div class="line"></div><div class="line">oUpload.onchange = function loadImgFile() &#123;</div><div class="line">    var oFile = oUpload.files[0];</div><div class="line"></div><div class="line">    if (!rFilter.test(oFile.type)) &#123;</div><div class="line">        alert(&apos;必须上传图片文件！&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if (window.FileReader) &#123;</div><div class="line">        /*</div><div class="line">        读取指定的Blob对象或File对象中的内容。</div><div class="line">        当读取操作完成时，会自动尝试去调用onloadend事件。</div><div class="line">        同时，result属性将包含一个data:URL表示读取的文件的内容。</div><div class="line">         */</div><div class="line">        oFileReader.readAsDataURL(oFile);</div><div class="line">    &#125; else if (navigator.appName === &apos;Microsoft Internet Explorer&apos;) &#123; // IE浏览器</div><div class="line">        // IE10以下版本不支持FileReader()构造函数，利用滤镜兼容旧版本的IE</div><div class="line">        oPreview.style.filter = &apos;progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)&apos;;</div><div class="line">        oPreview.filters.item(&quot;DXImageTransform.Microsoft.AlphaImageLoader&quot;).src = oUpload.value;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>方法2：URL.createObjectURL(blob)</li>
-</ul>
-<blockquote>
-<p>URL.createObjectURL(blob)静态方法会创建一个DOMString，其中包含一个表示参数中给出的对象的URL。这个URL的生命周期和创建它的窗口中的document绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">demo示例：</div><div class="line">var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;</div><div class="line">var oPreview = document.getElementsByClassName(&apos;img-thumbnail&apos;)[0]; // 预览图</div><div class="line">var oUpload = document.getElementsByClassName(&apos;file-upload&apos;)[0]; // 图片上传</div><div class="line"></div><div class="line">/**</div><div class="line"> * 获取dataURL</div><div class="line"> */</div><div class="line">function createObjectURL(blob) &#123;</div><div class="line">    return window[window.webkitURL ? &apos;webkitURL&apos; : &apos;URL&apos;][&apos;createObjectURL&apos;](blob);</div><div class="line">&#125;</div><div class="line"></div><div class="line">oUpload.onchange = function () &#123;</div><div class="line">    var oFile = oUpload.files[0];</div><div class="line"></div><div class="line">    if (!rFilter.test(oFile.type)) &#123;</div><div class="line">        alert(&apos;必须上传图片文件！&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var imgDataURL;</div><div class="line">    if (navigator.appName === &apos;&apos;) &#123;</div><div class="line">        // IE10以下版本不支持FileReader()构造函数，利用滤镜兼容旧版本的IE</div><div class="line">        imgDataURL = oUpload.value;</div><div class="line"></div><div class="line">        oPreview.style.filter = &apos;progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)&apos;;</div><div class="line">        oPreview.filters.item(&quot;DXImageTransform.Microsoft.AlphaImageLoader&quot;).src = imgDataURL;</div><div class="line">    &#125; else &#123;</div><div class="line">        imgDataURL = createObjectURL(oFile);</div><div class="line">        oPreview.src = imgDataURL;</div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/white-space,word-break,word-wrap的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -806,7 +808,7 @@
       
         
           
-            <h4 id="white-space-word-break-word-wrap的区别"><a href="#white-space-word-break-word-wrap的区别" class="headerlink" title="white-space,word-break,word-wrap的区别"></a>white-space,word-break,word-wrap的区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">word-wrap是是否允许单词内进行断句，word-break是表明怎么样进行单词内的断句，</div><div class="line"></div><div class="line">前者只有一个break-word属性，后者有break-word何break-all这2个属性，</div><div class="line"></div><div class="line">但是在我测试的时候感觉二者的break-word没啥区别</div><div class="line"></div><div class="line">white-space则是指定是否允许换行以及是否保留空格等，它有normal、nowrap、pre、pre-wrap、pre-line这5个属性。</div></pre></td></tr></table></figure>
+            <h4 id="white-space-word-break-word-wrap的区别"><a href="#white-space-word-break-word-wrap的区别" class="headerlink" title="white-space,word-break,word-wrap的区别"></a>white-space,word-break,word-wrap的区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">word-wrap是是否允许单词内进行断句，word-break是表明怎么样进行单词内的断句，</span><br><span class="line"></span><br><span class="line">前者只有一个break-word属性，后者有break-word何break-all这2个属性，</span><br><span class="line"></span><br><span class="line">但是在我测试的时候感觉二者的break-word没啥区别</span><br><span class="line"></span><br><span class="line">white-space则是指定是否允许换行以及是否保留空格等，它有normal、nowrap、pre、pre-wrap、pre-line这5个属性。</span><br></pre></td></tr></table></figure>
           
         
       
@@ -924,7 +926,7 @@
 
       
         
-          <h4 id="两栏布局-左边定宽右边自适应"><a href="#两栏布局-左边定宽右边自适应" class="headerlink" title="两栏布局  左边定宽右边自适应"></a>两栏布局  左边定宽右边自适应</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;&lt;/title&gt;</div><div class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">		.left&#123;</div><div class="line">                  width:200px;</div><div class="line">                  height:500px;</div><div class="line">                  float:left;</div><div class="line">                  background:red;</div><div class="line">		&#125;</div><div class="line">		.right&#123;</div><div class="line">                  overflow:hidden;</div><div class="line">                  height:500px;</div><div class="line">                  background:#ff0;</div><div class="line">		&#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">  &lt;div class=&quot;left&quot;&gt;左边&lt;/div&gt;</div><div class="line">  &lt;div class=&quot;right&quot;&gt;右边&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+          <h4 id="两栏布局-左边定宽右边自适应"><a href="#两栏布局-左边定宽右边自适应" class="headerlink" title="两栏布局  左边定宽右边自适应"></a>两栏布局  左边定宽右边自适应</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;title&gt;&lt;/title&gt;</span><br><span class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">	&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">		.left&#123;</span><br><span class="line">                  width:200px;</span><br><span class="line">                  height:500px;</span><br><span class="line">                  float:left;</span><br><span class="line">                  background:red;</span><br><span class="line">		&#125;</span><br><span class="line">		.right&#123;</span><br><span class="line">                  overflow:hidden;</span><br><span class="line">                  height:500px;</span><br><span class="line">                  background:#ff0;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div class=&quot;left&quot;&gt;左边&lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;right&quot;&gt;右边&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/22/两栏三栏布局/#more" rel="contents">
@@ -1048,14 +1050,14 @@
 
       
         
-          <h3 id="移动适配方案"><a href="#移动适配方案" class="headerlink" title="移动适配方案"></a>移动适配方案</h3><p><a href="http://div.io/topic/1092" target="_blank" rel="external">参考链接</a></p>
+          <h3 id="移动适配方案"><a href="#移动适配方案" class="headerlink" title="移动适配方案"></a>移动适配方案</h3><p><a href="http://div.io/topic/1092" target="_blank" rel="noopener">参考链接</a></p>
 <blockquote>
 <p>在pc端页面经常会遇到浏览器兼容的问题.移动端遇到最多的算是适配问题!</p>
 </blockquote>
 <h4 id="目前移动端适配常用的集中方法"><a href="#目前移动端适配常用的集中方法" class="headerlink" title="目前移动端适配常用的集中方法:"></a>目前移动端适配常用的集中方法:</h4><ul>
 <li>固定高度,宽度自适应,</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">是使用最多的方法, 垂直方向使用固定的高度值, 水平方向使用百分比,定值、flex等</div><div class="line"></div><div class="line">随着屏幕的变化，页面变化 效果跟pc端的响应式类似。 </div><div class="line"></div><div class="line">原理：</div><div class="line">&lt;meta name = &quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;/&gt;</div><div class="line"></div><div class="line">这样设置之后就可以了</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">是使用最多的方法, 垂直方向使用固定的高度值, 水平方向使用百分比,定值、flex等</span><br><span class="line"></span><br><span class="line">随着屏幕的变化，页面变化 效果跟pc端的响应式类似。 </span><br><span class="line"></span><br><span class="line">原理：</span><br><span class="line">&lt;meta name = &quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;/&gt;</span><br><span class="line"></span><br><span class="line">这样设置之后就可以了</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/20/移动适配解决方案/#more" rel="contents">
@@ -1183,36 +1185,36 @@
             <ul>
 <li>1.如何实现footer，当实际页面不够的时候在页面的底部，当页面足够长的时候能够随着页面滚动！</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">&lt;title&gt;footer始终居于底部&lt;/title&gt;</div><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">* &#123; margin:0; padding:0; &#125;</div><div class="line">body &#123; font:14px/1.8 arial; &#125;</div><div class="line">html, body, .wrap &#123; height:100%; &#125;</div><div class="line">.wrap &#123;</div><div class="line">    height:auto; </div><div class="line">    min-height:100%; </div><div class="line">    _height:100%; </div><div class="line">    background:#CCC; </div><div class="line">    color:#fff; </div><div class="line">    font-size:18px; </div><div class="line">    text-align:center; </div><div class="line">&#125;</div><div class="line">.main &#123; padding-bottom:80px; &#125;</div><div class="line">.footer &#123; </div><div class="line">    position:relative; </div><div class="line">    height:80px; </div><div class="line">    line-height: 80px; </div><div class="line">    margin-top:-80px; </div><div class="line">    background:#333; </div><div class="line">    color:#fff; </div><div class="line">    font-size:16px; </div><div class="line">    text-align:center; </div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div class=&quot;wrap&quot;&gt;</div><div class="line">    &lt;div class=&quot;main&quot;&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;p&gt;weddy&lt;/p&gt;</div><div class="line">        &lt;br /&gt;   </div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;footer&quot;&gt;</div><div class="line">    &lt;h1&gt;页面高度不满，底部固定&lt;/h1&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;footer始终居于底部&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">* &#123; margin:0; padding:0; &#125;</span><br><span class="line">body &#123; font:14px/1.8 arial; &#125;</span><br><span class="line">html, body, .wrap &#123; height:100%; &#125;</span><br><span class="line">.wrap &#123;</span><br><span class="line">    height:auto; </span><br><span class="line">    min-height:100%; </span><br><span class="line">    _height:100%; </span><br><span class="line">    background:#CCC; </span><br><span class="line">    color:#fff; </span><br><span class="line">    font-size:18px; </span><br><span class="line">    text-align:center; </span><br><span class="line">&#125;</span><br><span class="line">.main &#123; padding-bottom:80px; &#125;</span><br><span class="line">.footer &#123; </span><br><span class="line">    position:relative; </span><br><span class="line">    height:80px; </span><br><span class="line">    line-height: 80px; </span><br><span class="line">    margin-top:-80px; </span><br><span class="line">    background:#333; </span><br><span class="line">    color:#fff; </span><br><span class="line">    font-size:16px; </span><br><span class="line">    text-align:center; </span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div class=&quot;wrap&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;main&quot;&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;weddy&lt;/p&gt;</span><br><span class="line">        &lt;br /&gt;   </span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;footer&quot;&gt;</span><br><span class="line">    &lt;h1&gt;页面高度不满，底部固定&lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>2.对http协议的了解</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">http(超文本传输协议)是一个基于请求与响应模式的、无状态的、应用层的协议，常基于tcp的连接方式</div><div class="line">http的url</div><div class="line">包含:http+主机域名或者ip地址+端口号(省略则默认是80)+请求资源路径</div><div class="line">http请求</div><div class="line">分为三部分：请求行、消息报头、正文内容</div><div class="line">常见的请求方法:get和post</div><div class="line">HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http(超文本传输协议)是一个基于请求与响应模式的、无状态的、应用层的协议，常基于tcp的连接方式</span><br><span class="line">http的url</span><br><span class="line">包含:http+主机域名或者ip地址+端口号(省略则默认是80)+请求资源路径</span><br><span class="line">http请求</span><br><span class="line">分为三部分：请求行、消息报头、正文内容</span><br><span class="line">常见的请求方法:get和post</span><br><span class="line">HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文</span><br></pre></td></tr></table></figure>
 <ul>
 <li>3.HTTP协议头包含什么内容</li>
 </ul>
-<p><a href="http://blog.csdn.net/caojunling/article/details/1916899" target="_blank" rel="external">具体参考</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">请求头包含请求的方法、URI、协议版本、以及包含请求修饰符</div><div class="line">服务器以一个状态行作为响应，相应的内容包括消息协议的版本，成功或者错误编码加上包含服务器信息、实体元信息以 及可能的实体内容。</div></pre></td></tr></table></figure>
+<p><a href="http://blog.csdn.net/caojunling/article/details/1916899" target="_blank" rel="noopener">具体参考</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请求头包含请求的方法、URI、协议版本、以及包含请求修饰符</span><br><span class="line">服务器以一个状态行作为响应，相应的内容包括消息协议的版本，成功或者错误编码加上包含服务器信息、实体元信息以 及可能的实体内容。</span><br></pre></td></tr></table></figure>
 <ul>
 <li>4.jquery绑定事件的几种方法，另外用原生怎么绑定</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bind,on,delegate,live</div><div class="line"></div><div class="line">原生使用标准使用addEventListener() IE浏览器使用attachEvent()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bind,on,delegate,live</span><br><span class="line"></span><br><span class="line">原生使用标准使用addEventListener() IE浏览器使用attachEvent()</span><br></pre></td></tr></table></figure>
 <ul>
 <li>5.jquery的链式语句原理</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">通过调用对象上的方法最后 </div><div class="line">return this </div><div class="line">把对象再返回回来，对象当然可以继续调用方法啦，所以就可以链式操作了</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">通过调用对象上的方法最后 </span><br><span class="line">return this </span><br><span class="line">把对象再返回回来，对象当然可以继续调用方法啦，所以就可以链式操作了</span><br></pre></td></tr></table></figure>
 <ul>
 <li>6.jquery你是怎么优化的</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1.在jquery选择器中最快的是id选择器,然后是标签选择器</div><div class="line">2.将jQuery对象缓存进变量的习惯,同一个对象多次操作可以使用链式操作</div><div class="line">3.当要进行DOM插入时，将所有元素封装成一个元素。</div><div class="line">4.ajax请求直接使用ajax()</div><div class="line">5.采用jQuery内部函数data()来存储状态。</div><div class="line">6.使用时间代理</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.在jquery选择器中最快的是id选择器,然后是标签选择器</span><br><span class="line">2.将jQuery对象缓存进变量的习惯,同一个对象多次操作可以使用链式操作</span><br><span class="line">3.当要进行DOM插入时，将所有元素封装成一个元素。</span><br><span class="line">4.ajax请求直接使用ajax()</span><br><span class="line">5.采用jQuery内部函数data()来存储状态。</span><br><span class="line">6.使用时间代理</span><br></pre></td></tr></table></figure>
 <ul>
 <li>7.谈谈你对mvc的了解</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">MVC是Model—View—Controler的简称。即模型—视图—控制器。</div><div class="line">MVC是一种设计模式</div><div class="line">模型存放着应用的所有数据对象（业务数据、数据校验、增删改查)</div><div class="line">视图是呈现给用户的,视图通过观察者模式监视模型，以获得最新的数据，</div><div class="line">来呈现最新的页面。</div><div class="line">控制器（分发器），是模型和视图之间的桥梁,用来处理业务逻辑</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MVC是Model—View—Controler的简称。即模型—视图—控制器。</span><br><span class="line">MVC是一种设计模式</span><br><span class="line">模型存放着应用的所有数据对象（业务数据、数据校验、增删改查)</span><br><span class="line">视图是呈现给用户的,视图通过观察者模式监视模型，以获得最新的数据，</span><br><span class="line">来呈现最新的页面。</span><br><span class="line">控制器（分发器），是模型和视图之间的桥梁,用来处理业务逻辑</span><br></pre></td></tr></table></figure>
 <ul>
 <li>8.移动端点击穿透</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">因为在移动端浏览器，事件执行的顺序是touchstart &gt; touchend &gt; click。</div><div class="line">而click事件有300ms的延迟，当touchstart事件把B元素隐藏之后，隔了300ms，</div><div class="line">浏览器触发了click事件，但是此时B元素不见了，所以该事件被派发到了A元素身上。</div><div class="line">如果A元素是一个链接，那此时页面就会意外地跳转。</div><div class="line">//解决方案：</div><div class="line">fastclick.js可以解决在手机上点击事件的300ms延迟</div><div class="line">zepto的touch模块，tap事件也是为了解决在click的延迟问题</div><div class="line">方案一:禁用缩放</div><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;user-scalable=no&quot;&gt;</div><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1,maximum-scale=1&quot;&gt;</div><div class="line">方案二:更改默认的视口宽度:</div><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;</div><div class="line">方案三：CSS touch-action</div><div class="line">如果将该属性值设置为touch-action: none，那么表示在该元素上的操作不会触发用户代理的任何默认行为，就无需进行300ms的延迟判断。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">因为在移动端浏览器，事件执行的顺序是touchstart &gt; touchend &gt; click。</span><br><span class="line">而click事件有300ms的延迟，当touchstart事件把B元素隐藏之后，隔了300ms，</span><br><span class="line">浏览器触发了click事件，但是此时B元素不见了，所以该事件被派发到了A元素身上。</span><br><span class="line">如果A元素是一个链接，那此时页面就会意外地跳转。</span><br><span class="line">//解决方案：</span><br><span class="line">fastclick.js可以解决在手机上点击事件的300ms延迟</span><br><span class="line">zepto的touch模块，tap事件也是为了解决在click的延迟问题</span><br><span class="line">方案一:禁用缩放</span><br><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;user-scalable=no&quot;&gt;</span><br><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1,maximum-scale=1&quot;&gt;</span><br><span class="line">方案二:更改默认的视口宽度:</span><br><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;</span><br><span class="line">方案三：CSS touch-action</span><br><span class="line">如果将该属性值设置为touch-action: none，那么表示在该元素上的操作不会触发用户代理的任何默认行为，就无需进行300ms的延迟判断。</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1333,7 +1335,7 @@
           <ul>
 <li>1.有关BFC的理解</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">BFC用来格式化块级盒子</div><div class="line">BFC: 提供一个环境，html元素会在这个环境中按照一定的规则进行布局。</div><div class="line">ex: 例如浮动元素会形成bfc,浮动元素内部子元素主要受该浮动元素影响，但是两个浮动元素互相不影响。</div><div class="line">这个可以理解为一个独立容器，里边规则不会影响到外边。</div><div class="line">那么什么情况下会生成bfc呢：</div><div class="line">1、浮动元素，float除none以外的值</div><div class="line">2、绝对定位，position(absolite,fixed)</div><div class="line">3、dispaly = inline-blocks|table-cells|table-captions</div><div class="line">4、overflow除visible以外的值</div><div class="line">作用：</div><div class="line">1、可以阻止元素被浮动元素覆盖</div><div class="line">2、包含浮动元素</div><div class="line">3、如果属于同一个bfc的两个元素上下margin会发生重叠，但如果两个元素属于两个不同的bfc那么margin就不会发生重叠</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">BFC用来格式化块级盒子</span><br><span class="line">BFC: 提供一个环境，html元素会在这个环境中按照一定的规则进行布局。</span><br><span class="line">ex: 例如浮动元素会形成bfc,浮动元素内部子元素主要受该浮动元素影响，但是两个浮动元素互相不影响。</span><br><span class="line">这个可以理解为一个独立容器，里边规则不会影响到外边。</span><br><span class="line">那么什么情况下会生成bfc呢：</span><br><span class="line">1、浮动元素，float除none以外的值</span><br><span class="line">2、绝对定位，position(absolite,fixed)</span><br><span class="line">3、dispaly = inline-blocks|table-cells|table-captions</span><br><span class="line">4、overflow除visible以外的值</span><br><span class="line">作用：</span><br><span class="line">1、可以阻止元素被浮动元素覆盖</span><br><span class="line">2、包含浮动元素</span><br><span class="line">3、如果属于同一个bfc的两个元素上下margin会发生重叠，但如果两个元素属于两个不同的bfc那么margin就不会发生重叠</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/18/前端面试题库(9)/#more" rel="contents">
@@ -1459,12 +1461,12 @@
         
           <ul>
 <li><p>1.为什么要使用css预编译</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、css无法递归式定义</div><div class="line">2、解决复用性不够</div><div class="line">3、可以缓解浏览器兼容造成的冗余</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、css无法递归式定义</span><br><span class="line">2、解决复用性不够</span><br><span class="line">3、可以缓解浏览器兼容造成的冗余</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>2.cookie,sessionStorage和localStorage的区别</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cookie用来在浏览器和服务器中传递并且总量很小</div><div class="line">sessionStorage和localStorage用于存储本地数据，存储较大</div><div class="line">localStorage是持久性存储</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cookie用来在浏览器和服务器中传递并且总量很小</span><br><span class="line">sessionStorage和localStorage用于存储本地数据，存储较大</span><br><span class="line">localStorage是持久性存储</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/17/前端面试题库(8)/#more" rel="contents">
