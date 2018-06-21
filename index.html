@@ -219,6 +219,170 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/06/21/downloadCvs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/21/downloadCvs/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T10:26:09+08:00">
+                2018-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function radarDLBut(filename) {
+        //tdstr用于装载处理后的数据，不同的数据源处理方式可能不同；","用于列的分割，"\n"用于跳转到下一行
+        var table = document.all.Data;//Data即<table>的ID
+        var hang = table.rows.length;//取数据源行数
+        var lie = table.rows[0].cells.length;//取数据源列数
+        var tdstr = "";
+        for (i = 0; i < hang; ++i) {
+            for (j = 0; j < lie; ++j) {
+                tdstr += table.rows[i].cells[j].innerText + ",";
+            }
+            tdstr = tdstr.substring(0, tdstr.length - 1) + "\n";
+        }
+
+        var csvContent = "data:text/csv;charset=utf-8,\ufeff";//\ufeff去除中文数据乱码
+        if (window.navigator.msSaveOrOpenBlob) {
+            csvContent = "\ufeff";
+        }
+        csvContent += tdstr;
+        if (window.navigator.msSaveOrOpenBlob) {
+            // if browser is IE
+            var blob = new Blob([decodeURIComponent(encodeURI(csvContent))], {
+                type: "text/csv;charset=utf-8;"
+            });
+            navigator.msSaveBlob(blob, filename);//filename文件名包括扩展名，下载路径为浏览器默认路径
+        } else {
+            var encodedUri = encodeURI(csvContent);//encodeURI识别转义符
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", filename);
+
+            document.body.appendChild(link);
+            link.click();
+        }
+    };
+    radarDLBut("aaa.exl");
+</script>
+</body>
+</html>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/06/01/火星坐标、百度坐标、WGS84坐标转换代码（JS、python版）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -375,150 +539,6 @@ return [lng * 2 - mglng, lat * 2 - mglat]
 <p>def transformlng(lng, lat):<br>    ret = 300.0 + lng + 2.0 <em> lat + 0.1 </em> lng <em> lng + \<br>        0.1 </em> lng <em> lat + 0.1 </em> math.sqrt(math.fabs(lng))<br>    ret += (20.0 <em> math.sin(6.0 </em> lng <em> pi) + 20.0 </em><br>            math.sin(2.0 <em> lng </em> pi)) <em> 2.0 / 3.0<br>    ret += (20.0 </em> math.sin(lng <em> pi) + 40.0 </em><br>            math.sin(lng / 3.0 <em> pi)) </em> 2.0 / 3.0<br>    ret += (150.0 <em> math.sin(lng / 12.0 </em> pi) + 300.0 <em><br>            math.sin(lng / 30.0 </em> pi)) * 2.0 / 3.0<br>    return ret</p>
 <p>def out_of_china(lng, lat):<br>    “””<br>    判断是否在国内，不在国内不做偏移<br>    :param lng:<br>    :param lat:<br>    :return:<br>    “””<br>    if lng &lt; 72.004 or lng &gt; 137.8347:<br>        return True<br>    if lat &lt; 0.8293 or lat &gt; 55.8271:<br>        return True<br>    return False</p>
 <p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    lng = 128.543<br>    lat = 37.065<br>    result1 = gcj02tobd09(lng, lat)<br>    result2 = bd09togcj02(lng, lat)<br>    result3 = wgs84togcj02(lng, lat)<br>    result4 = gcj02towgs84(lng, lat)<br>    result5 = geocode(‘北京市朝阳区朝阳公园’)<br>    print result1, result2, result3, result4, result5</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/29/前端学习资源整理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/29/前端学习资源整理/" itemprop="url">前端学习资源整理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T15:54:12+08:00">
-                2018-03-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1.<a href="https://segmentfault.com/a/1190000004322487" target="_blank" rel="noopener">你真的会使用XMLHttpRequest吗？</a></p>
-<p>2.<a href="https://blog.csdn.net/jlin991/article/details/57083865" target="_blank" rel="noopener">CORS正确使用姿势</a></p>
-<p>3.<a href="https://vuejscaff.com" target="_blank" rel="noopener">vue翻译社区</a></p>
 
           
         
@@ -838,6 +858,151 @@ return [lng * 2 - mglng, lat * 2 - mglat]
             <p>1.<a href="https://doc.xuwenliang.com/docs/laravel/1270" target="_blank" rel="noopener">laraval生态资源相关</a></p>
 <p>2.<a href="https://laravel-china.org/topics/1629/laravel-navigation-without-authority?order_by=vote_count&amp;" target="_blank" rel="noopener">laraval不权威导航</a><br>3.<a href="http://laravelacademy.org/post/153.html" target="_blank" rel="noopener">Laravel 精选资源大全（持续更新）</a></p>
 <p>4.<a href="https://www.cnblogs.com/phpwechat/p/6287330.html" target="_blank" rel="noopener">10天学会phpWeChat</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/29/前端学习资源整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/29/前端学习资源整理/" itemprop="url">前端学习资源整理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T15:54:12+08:00">
+                2018-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.<a href="https://segmentfault.com/a/1190000004322487" target="_blank" rel="noopener">你真的会使用XMLHttpRequest吗？</a></p>
+<p>2.<a href="https://blog.csdn.net/jlin991/article/details/57083865" target="_blank" rel="noopener">CORS正确使用姿势</a></p>
+<p>3.<a href="https://vuejscaff.com" target="_blank" rel="noopener">vue翻译社区</a></p>
+<p>4.</p>
 
           
         
@@ -1218,6 +1383,160 @@ ClientGlobal.initByTrackers(trackerServers);
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/05/java-web开发遇到问题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/05/java-web开发遇到问题总结/" itemprop="url">java-web开发遇到问题总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T15:54:12+08:00">
+                2018-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>1.报错 <code>There is no getter for property named &#39;XXX&#39; in &#39;class java.lang.String&#39;</code></p>
+<p> <a href="http://blog.csdn.net/woshixuye/article/details/8820387" target="_blank" rel="noopener">问题解决参考</a></p>
+</li>
+<li><p>2.<a href="https://www.cnblogs.com/kongbailin/p/7668631.html" target="_blank" rel="noopener">tomcat部署项目-静态网页项目</a></p>
+</li>
+<li><p>3.<a href="https://www.cnblogs.com/ysocean/p/6893446.html" target="_blank" rel="noopener">tomcat部署项目的三种方式</a></p>
+</li>
+<li><p>4.<a href="https://blog.csdn.net/u010837486/article/details/43458847" target="_blank" rel="noopener">有关springmvc文件上传，出现400 的错误问题</a></p>
+</li>
+<li><p>5.<a href=""></a>   </p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/05/faceDetect项目开发资源整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1338,160 +1657,6 @@ ClientGlobal.initByTrackers(trackerServers);
 <li><p>11.<a href="https://juejin.im/post/593fa043a0bb9f006b684df4#heading-3" target="_blank" rel="noopener">细说 Angular 2+ 的表单（二）：响应式表单</a></p>
 </li>
 <li><p>12.<a href="https://blog.csdn.net/qq_35765126/article/details/77102365" target="_blank" rel="noopener">Angular4模板式表单、响应式表单、表单状态字段</a></p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2018/03/05/java-web开发遇到问题总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/05/java-web开发遇到问题总结/" itemprop="url">java-web开发遇到问题总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T15:54:12+08:00">
-                2018-03-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>1.报错 <code>There is no getter for property named &#39;XXX&#39; in &#39;class java.lang.String&#39;</code></p>
-<p> <a href="http://blog.csdn.net/woshixuye/article/details/8820387" target="_blank" rel="noopener">问题解决参考</a></p>
-</li>
-<li><p>2.<a href="https://www.cnblogs.com/kongbailin/p/7668631.html" target="_blank" rel="noopener">tomcat部署项目-静态网页项目</a></p>
-</li>
-<li><p>3.<a href="https://www.cnblogs.com/ysocean/p/6893446.html" target="_blank" rel="noopener">tomcat部署项目的三种方式</a></p>
-</li>
-<li><p>4.<a href="https://blog.csdn.net/u010837486/article/details/43458847" target="_blank" rel="noopener">有关springmvc文件上传，出现400 的错误问题</a></p>
-</li>
-<li><p>5.<a href=""></a>   </p>
 </li>
 </ul>
 
@@ -1842,148 +2007,6 @@ ClientGlobal.initByTrackers(trackerServers);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/12/01/开发遇到的浏览器兼容性问题整理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/01/开发遇到的浏览器兼容性问题整理/" itemprop="url">开发遇到的浏览器兼容问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T17:37:12+08:00">
-                2017-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1.<a href="https://segmentfault.com/a/1190000014134234" target="_blank" rel="noopener">阻止微信浏览器下拉滑动效果（ios11.3 橡皮筋效果</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2033,7 +2056,7 @@ ClientGlobal.initByTrackers(trackerServers);
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
