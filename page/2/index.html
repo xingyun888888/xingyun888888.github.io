@@ -569,6 +569,7 @@
 <li>深复制</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">那么深复制可能就需要层层递归，复制对象的所有属性，包括对象属性的属性的属性，有人想出了用JSON的解析实现，如下代码：</span><br><span class="line"></span><br><span class="line">function deepCopy(obj)&#123;</span><br><span class="line">   if(typeof obj !== &quot;object&quot;)&#123; return ;&#125;</span><br><span class="line">   var str = JSON.stringify(obj);</span><br><span class="line">   return JSON.parse(str);</span><br><span class="line">&#125;</span><br><span class="line">👆上面的方法不适用的条件是</span><br><span class="line"></span><br><span class="line">需要考虑把函数，正则等特殊数据类型复制</span><br><span class="line">当前对象不支持JSON</span><br><span class="line">JSON复制会忽略掉值为undefined以及函数表达式</span><br><span class="line">可以看下面的栗子：</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    b: 2,</span><br><span class="line">    c: undefined,</span><br><span class="line">    sum: function() &#123; return a + b; &#125;</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = JSON.parse(JSON.stringify(obj));</span><br><span class="line">console.log(obj2);//输出：Object &#123;a: 1, b: 2&#125;</span><br><span class="line">这个时候还是要层层递归来不同情况不同分析来考虑的，最终的方案如下：</span><br><span class="line"></span><br><span class="line">//对象深复制</span><br><span class="line">function deepCopy(obj)&#123;</span><br><span class="line">    var newObj = obj.constructor === Array ? []:&#123;&#125;;</span><br><span class="line">    newObj.constructor = obj.constructor;</span><br><span class="line">    if(typeof obj !== &quot;object&quot;)&#123; </span><br><span class="line">        return ;</span><br><span class="line">    &#125; else if(window.JSON)&#123;</span><br><span class="line">        newObj = JSON.parse(JSON.stringify(obj));//若需要考虑特殊的数据类型，如正则，函数等，需把这个else if去掉即可</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        for(var prop in obj)&#123;</span><br><span class="line">            if(obj[prop].constructor === RegExp ||obj[prop].constructor === Date)&#123;</span><br><span class="line">                newObj[prop] = obj[prop];</span><br><span class="line">            &#125; else if(typeof obj[prop] === &apos;object&apos;)&#123;</span><br><span class="line">                newObj[prop] = deepCopy(obj[prop]);//递归</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                newObj[prop] = obj[prop];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    return newObj;</span><br><span class="line">&#125;</span><br><span class="line">第三方库实现的深浅复制（推荐看文档源码，这里就不详讲了）</span><br><span class="line"></span><br><span class="line">jQuery.extend</span><br><span class="line">jQuery.extend()</span><br><span class="line"></span><br><span class="line">lodash 中 _.clone() / _.cloneDeep()</span><br><span class="line">_.clone()</span><br><span class="line">_.cloneDeep()</span><br></pre></td></tr></table></figure>
+<hr>
 <ul>
 <li>总结</li>
 </ul>
@@ -1001,6 +1002,125 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/white-space,word-break,word-wrap的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呆萌的smile_微笑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/22/white-space,word-break,word-wrap的区别/" itemprop="url">white-space,word-break,word-wrap的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T11:55:14+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="white-space-word-break-word-wrap的区别"><a href="#white-space-word-break-word-wrap的区别" class="headerlink" title="white-space,word-break,word-wrap的区别"></a>white-space,word-break,word-wrap的区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">word-wrap是是否允许单词内进行断句，word-break是表明怎么样进行单词内的断句，</span><br><span class="line"></span><br><span class="line">前者只有一个break-word属性，后者有break-word何break-all这2个属性，</span><br><span class="line"></span><br><span class="line">但是在我测试的时候感觉二者的break-word没啥区别</span><br><span class="line"></span><br><span class="line">white-space则是指定是否允许换行以及是否保留空格等，它有normal、nowrap、pre、pre-wrap、pre-line这5个属性。</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/两栏三栏布局/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1079,125 +1199,6 @@
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xingyun888888.github.io/2017/09/22/white-space,word-break,word-wrap的区别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="呆萌的smile_微笑">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/22/white-space,word-break,word-wrap的区别/" itemprop="url">white-space,word-break,word-wrap的区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T11:55:14+08:00">
-                2017-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="white-space-word-break-word-wrap的区别"><a href="#white-space-word-break-word-wrap的区别" class="headerlink" title="white-space,word-break,word-wrap的区别"></a>white-space,word-break,word-wrap的区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">word-wrap是是否允许单词内进行断句，word-break是表明怎么样进行单词内的断句，</span><br><span class="line"></span><br><span class="line">前者只有一个break-word属性，后者有break-word何break-all这2个属性，</span><br><span class="line"></span><br><span class="line">但是在我测试的时候感觉二者的break-word没啥区别</span><br><span class="line"></span><br><span class="line">white-space则是指定是否允许换行以及是否保留空格等，它有normal、nowrap、pre、pre-wrap、pre-line这5个属性。</span><br></pre></td></tr></table></figure>
-          
         
       
     </div>
